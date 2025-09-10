@@ -1,0 +1,38 @@
+@import "tailwindcss";
+
+@font-face {
+  font-family: "Minecraft";
+  src: url("./assets/Minecraftia-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Minercraftory";
+  src: url("./assets/Minercraftory.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+* {
+  font-family: "Minecraft", monospace;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Minecraft", monospace;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Minercraftory", "Minecraft", monospace !important;
+}
