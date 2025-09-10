@@ -114,15 +114,7 @@ const GuideCard = () => {
               }}
               onClick={() => handleTabClick(tab.id)}
             >
-              <img 
-                src={tab.icon} 
-                alt={tab.label} 
-                className="w-8 h-8 mr-3" 
-                style={{
-                  imageRendering: 'auto',
-                  filter: 'contrast(1.1) brightness(1.05)'
-                }}
-              />
+              <img src={tab.icon} alt={tab.label} className="w-8 h-8 mr-3" />
               <span className="text-sm">{tab.label}</span>
             </div>
           ))}
@@ -143,12 +135,7 @@ const GuideCard = () => {
               <img
                 src={guideSteps[selectedTab][currentImageIndex].image}
                 alt="Guide content"
-                className="w-full h-80 object-contain rounded-lg"
-                style={{
-                  imageRendering: 'auto',
-                  filter: 'contrast(1.1) brightness(1.05)',
-                  backgroundColor: '#2a2a2a'
-                }}
+                className="w-full h-80 object-cover rounded-lg"
                 key={`${selectedTab}-${currentImageIndex}`}
               />
             </div>
