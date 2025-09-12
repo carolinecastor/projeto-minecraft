@@ -1,6 +1,6 @@
 import { useCallback } from "react";
 import steven from "../../assets/steven.png";
-import alex from "../../assets/alex.png";
+import alex from "../../assets/Alex.png";
 import stevenCabeca from "../../assets/steven-cabeca.png";
 import alexCabeca from "../../assets/alex-cabeca.png";
 import { Title, Description } from "../ui";
