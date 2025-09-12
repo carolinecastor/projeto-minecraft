@@ -1,15 +1,15 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import logoMine from "../../assets/logo-minecraft (1).png";
+import { playClickSound } from "../../utils/soundUtils";
 
 const Header = () => {
   const [activeSection, setActiveSection] = useState(null);
 
   const scrollToSection = (sectionId) => {
+    playClickSound();
     const element = document.getElementById(sectionId);
     if (element) {
-      let offset = 60; // offset padrão
-
-      // offsets específicos para cada seção
+      let offset = 60;
       if (sectionId === "characters") {
         offset = 200;
       } else if (sectionId === "guides") {
@@ -24,13 +24,42 @@ const Header = () => {
         top: elementPosition,
         behavior: "smooth",
       });
-      setActiveSection(activeSection === sectionId ? null : sectionId);
+      setActiveSection(sectionId);
     }
   };
 
   const scrollToTop = () => {
+    playClickSound();
     window.scrollTo({ top: 0, behavior: "smooth" });
+    setActiveSection(null);
   };
+
+  useEffect(() => {
+    const ids = ["hero", "characters", "guides", "seeds"];
+    const options = {
+      root: null,
+      rootMargin: "-50% 0px -50% 0px",
+      threshold: 0,
+    };
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          if (entry.target.id === "hero") {
+            setActiveSection(null);
+          } else {
+            setActiveSection(entry.target.id);
+          }
+        }
+      });
+    }, options);
+    ids.forEach((id) => {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
 
   return (
     <header className="bg-[rgba(30,30,30,0.64)] h-12 sm:h-16 fixed top-0 left-0 right-0 z-[99999]">
@@ -48,7 +77,11 @@ const Header = () => {
         <div className="hidden sm:flex space-x-6">
           <button
             onClick={() => scrollToSection("characters")}
-            className="text-white hover:text-yellow-400 transition-colors text-xs uppercase tracking-wider font-bold flex items-center gap-1"
+            className={`transition-colors text-xs uppercase tracking-wider font-bold flex items-center gap-1 ${
+              activeSection === "characters"
+                ? "text-green-400"
+                : "text-white hover:text-green-400"
+            }`}
           >
             Personagens
             <svg
@@ -69,7 +102,11 @@ const Header = () => {
           </button>
           <button
             onClick={() => scrollToSection("guides")}
-            className="text-white hover:text-yellow-400 transition-colors text-xs uppercase tracking-wider font-bold flex items-center gap-1"
+            className={`transition-colors text-xs uppercase tracking-wider font-bold flex items-center gap-1 ${
+              activeSection === "guides"
+                ? "text-green-400"
+                : "text-white hover:text-green-400"
+            }`}
           >
             Guias
             <svg
@@ -90,7 +127,11 @@ const Header = () => {
           </button>
           <button
             onClick={() => scrollToSection("seeds")}
-            className="text-white hover:text-yellow-400 transition-colors text-xs uppercase tracking-wider font-bold flex items-center gap-1"
+            className={`transition-colors text-xs uppercase tracking-wider font-bold flex items-center gap-1 ${
+              activeSection === "seeds"
+                ? "text-green-400"
+                : "text-white hover:text-green-400"
+            }`}
           >
             Seeds
             <svg

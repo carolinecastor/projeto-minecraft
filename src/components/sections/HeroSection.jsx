@@ -1,6 +1,6 @@
 import fundoMine from "../../assets/fundomine.webp";
 import detalhes from "../../assets/detalhes-projeto-mine.png";
-import { Title, Description, Button, Transition1 } from "../ui";
+import { Title, Description, Button, Transition1, Transition } from "../ui";
 
 const HeroSection = () => {
   const backgroundStyle = {
@@ -49,8 +49,10 @@ const HeroSection = () => {
             </div>
           </div>
         </div>
+        <div className="p-5 absolute bottom-5 -left-10 w-screen">
+          <Transition1 className="-top-20 block z-[100] bg-transparent" />
+        </div>
       </div>
-      <Transition1 className="-bottom-10" />
     </section>
   );
 };

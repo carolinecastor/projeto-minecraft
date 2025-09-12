@@ -6,8 +6,9 @@ import {
   GuideSection,
   SeedSection,
   CraftSection,
+  Footer,
 } from "./components/sections";
-import { Transition } from "./components/ui";
+import { Transition, PedraTransition } from "./components/ui";
 
 function App() {
   const [selectedCursor, setSelectedCursor] = useState(null);
@@ -32,6 +33,8 @@ function App() {
       <GuideSection />
       <SeedSection />
       <CraftSection />
+      {/* <PedraTransition /> */}
+      <Footer />
     </div>
   );
 }

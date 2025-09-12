@@ -1,5 +1,6 @@
 import { useState, useCallback, useMemo, memo } from "react";
 import { Title, Button } from "../ui";
+import { playClickSound } from "../../utils/soundUtils";
 import terraGuia from "../../assets/terra-guia.png";
 import netherGuia from "../../assets/nether-guia.png";
 import preparacaoGuia from "../../assets/preparacao-guia.png";
@@ -34,7 +35,10 @@ const TabItem = memo(({ tab, index, isSelected, tabsLength, onTabClick }) => (
         ? "border-b-2 border-b-[#747474]"
         : ""
     } ${isSelected ? "bg-[#3D3938]" : "bg-[#262523] hover:bg-[#3D3938]"}`}
-    onClick={onTabClick}
+    onClick={() => {
+      playClickSound();
+      onTabClick();
+    }}
   >
     <img src={tab.icon} alt={tab.label} className="w-8 h-8 mr-3" />
     <span className="text-sm">{tab.label}</span>

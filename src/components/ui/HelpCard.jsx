@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { playClickSound } from "../../utils/soundUtils";
 
 const HelpCard = ({ title, content, className = "" }) => {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -7,7 +8,10 @@ const HelpCard = ({ title, content, className = "" }) => {
     <div className={`fixed top-40 right-6 z-20 ${className}`}>
       <div className="relative">
         <button
-          onClick={() => setIsExpanded(!isExpanded)}
+          onClick={() => {
+            playClickSound();
+            setIsExpanded(!isExpanded);
+          }}
           className="w-12 h-12 bg-[#585858] border-2 border-[#747474] shadow-lg hover:bg-[#3D3938] transition-colors duration-150 font-minecraft text-white flex items-center justify-center"
           style={{
             fontSize: "20px",

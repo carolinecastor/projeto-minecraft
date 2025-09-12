@@ -1,3 +1,5 @@
+import { playClickSound } from "../../utils/soundUtils";
+
 const Button = ({
   children,
   disabled = false,
@@ -12,11 +14,20 @@ const Button = ({
     ? "opacity-50 cursor-not-allowed hover:bg-current active:translate-y-0"
     : "";
 
+  const handleClick = (e) => {
+    if (!disabled) {
+      playClickSound();
+      if (onClick) {
+        onClick(e);
+      }
+    }
+  };
+
   return (
     <button
       type={type}
       className={`${buttonClasses} ${disabledClasses} ${className}`}
-      onClick={onClick}
+      onClick={handleClick}
       disabled={disabled}
     >
       <h6 className="font-minercraftory!">{children}</h6>

@@ -3,15 +3,17 @@ import steven from "../../assets/steven.png";
 import alex from "../../assets/alex.png";
 import stevenCabeca from "../../assets/steven-cabeca.png";
 import alexCabeca from "../../assets/alex-cabeca.png";
-import transition2 from "../../assets/transition-2.png";
 import { Title, Description } from "../ui";
+import { playHurtSound } from "../../utils/soundUtils";
 
 const CharacterSelection = ({ onCursorChange }) => {
   const handleStevenClick = useCallback(() => {
+    playHurtSound();
     onCursorChange(stevenCabeca);
   }, [onCursorChange]);
 
   const handleAlexClick = useCallback(() => {
+    playHurtSound();
     onCursorChange(alexCabeca);
   }, [onCursorChange]);
 
@@ -25,7 +27,7 @@ const CharacterSelection = ({ onCursorChange }) => {
         <img
           src={steven}
           alt=""
-          className="absolute bottom-10 left-48 cursor-pointer transition-all duration-300 hover:scale-110 hover:brightness-110 hover:drop-shadow-lg"
+          className="absolute -bottom-4 left-48 cursor-pointer transition-all duration-300 hover:scale-110 hover:brightness-110 hover:drop-shadow-lg"
           onClick={handleStevenClick}
           loading="lazy"
           decoding="async"
@@ -33,7 +35,7 @@ const CharacterSelection = ({ onCursorChange }) => {
         <img
           src={alex}
           alt=""
-          className="absolute -top-20 right-0 cursor-pointer transition-all duration-300 hover:scale-110 hover:brightness-110 hover:drop-shadow-lg"
+          className="absolute -top-15 right-0 cursor-pointer transition-all duration-300 hover:scale-110 hover:brightness-110 hover:drop-shadow-lg"
           onClick={handleAlexClick}
           loading="lazy"
           decoding="async"

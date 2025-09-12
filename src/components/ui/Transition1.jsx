@@ -4,7 +4,7 @@ const Transition1 = ({ className = "" }) => {
   return (
     <div className="relative">
       <img
-        className={`pointer-events-none absolute left-0 w-full block z-[9999] ${className}`}
+        className={`pointer-events-none absolute left-0 w-full block z-[100] bg-red-600 ${className}`}
         src={transition}
         alt=""
         loading="lazy"
