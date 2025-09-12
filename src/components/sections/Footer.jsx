@@ -27,8 +27,11 @@ const Footer = () => {
   ]);
   const [isTyping, setIsTyping] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [typingUsers, setTypingUsers] = useState([]);
   const chatContainerRef = useRef(null);
   const subscriptionRef = useRef(null);
+  const typingSubscriptionRef = useRef(null);
+  const typingTimeoutRef = useRef(null);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -75,14 +78,50 @@ const Footer = () => {
         const formattedMessage = chatService.formatMessage(newMessage);
         setChatMessages(prev => [...prev, formattedMessage]);
       });
+
+      // Configurar subscription para indicadores de digitação
+      typingSubscriptionRef.current = chatService.subscribeToTypingIndicators((typingData) => {
+        const { player_name, is_typing } = typingData;
+        
+        // Não mostrar nosso próprio indicador de digitação
+        if (player_name === playerName) return;
+        
+        setTypingUsers(prev => {
+          if (is_typing) {
+            // Adicionar usuário digitando se não estiver na lista
+            if (!prev.find(user => user.name === player_name)) {
+              return [...prev, { name: player_name, timestamp: Date.now() }];
+            }
+            return prev;
+          } else {
+            // Remover usuário da lista de digitando
+            return prev.filter(user => user.name !== player_name);
+          }
+        });
+
+        // Remover automaticamente após 5 segundos de inatividade
+        if (is_typing) {
+          setTimeout(() => {
+            setTypingUsers(prev => prev.filter(user => 
+              user.name !== player_name || Date.now() - user.timestamp > 5000
+            ));
+          }, 5000);
+        }
+      });
     };
     
     initializeChat();
     
-    // Cleanup: remover subscription ao desmontar
+    // Cleanup: remover subscriptions ao desmontar
     return () => {
       if (subscriptionRef.current) {
         chatService.unsubscribe(subscriptionRef.current);
+      }
+      if (typingSubscriptionRef.current) {
+        chatService.unsubscribe(typingSubscriptionRef.current);
+      }
+      if (typingTimeoutRef.current) {
+        clearTimeout(typingTimeoutRef.current);
       }
     };
   }, []);
@@ -140,11 +179,40 @@ const Footer = () => {
 
     setMessage("");
     setIsTyping(false);
+    
+    // Enviar indicador de que parou de digitar
+    if (playerName.trim()) {
+      chatService.sendTypingIndicator(playerName, false);
+    }
+    
+    // Limpar timeout de digitação
+    if (typingTimeoutRef.current) {
+      clearTimeout(typingTimeoutRef.current);
+    }
   };
 
   const handleTyping = (e) => {
     setMessage(e.target.value);
-    setIsTyping(e.target.value.length > 0);
+    const isCurrentlyTyping = e.target.value.length > 0;
+    setIsTyping(isCurrentlyTyping);
+
+    // Enviar indicador de digitação se tivermos um nome de jogador
+    if (playerName.trim()) {
+      chatService.sendTypingIndicator(playerName, isCurrentlyTyping);
+      
+      // Limpar o timeout anterior
+      if (typingTimeoutRef.current) {
+        clearTimeout(typingTimeoutRef.current);
+      }
+      
+      // Se está digitando, configurar timeout para parar o indicador após 2 segundos de inatividade
+      if (isCurrentlyTyping) {
+        typingTimeoutRef.current = setTimeout(() => {
+          chatService.sendTypingIndicator(playerName, false);
+          setIsTyping(false);
+        }, 2000);
+      }
+    }
   };
 
   return (
@@ -336,10 +404,27 @@ const Footer = () => {
                     )}
                   </div>
                 ))}
-                {isTyping && (
+                
+                {/* Mostrar indicadores de digitação de outros usuários */}
+                {typingUsers.map((user, index) => (
+                  <div key={`typing-${user.name}-${index}`} className="flex items-start gap-2 text-gray-400 italic text-sm animate-pulse">
+                    <span className="text-gray-500 text-xs flex-shrink-0 mt-0.5">[{formatTime(currentTime)}]</span>
+                    <span className="text-yellow-300 flex items-center gap-1">
+                      &lt;{user.name}&gt; está digitando
+                      <div className="flex gap-1">
+                        <div className="w-1 h-1 bg-yellow-300 rounded-full animate-bounce"></div>
+                        <div className="w-1 h-1 bg-yellow-300 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
+                        <div className="w-1 h-1 bg-yellow-300 rounded-full animate-bounce" style={{ animationDelay: '0.4s' }}></div>
+                      </div>
+                    </span>
+                  </div>
+                ))}
+                
+                {/* Mostrar nosso próprio indicador de digitação (apenas localmente) */}
+                {isTyping && playerName.trim() && (
                   <div className="flex items-start gap-2 text-gray-400 italic text-sm animate-pulse">
                     <span className="text-gray-500 text-xs flex-shrink-0 mt-0.5">[{formatTime(currentTime)}]</span>
-                    <span>&lt;{playerName || "Visitante"}&gt; está digitando...</span>
+                    <span className="text-cyan-300">&lt;{playerName}&gt; está digitando...</span>
                   </div>
                 )}
               </div>

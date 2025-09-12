@@ -80,6 +80,44 @@ export const chatService = {
     }
   },
 
+  // Enviar indicador de digitação
+  sendTypingIndicator(playerName, isTyping) {
+    try {
+      const channel = supabase.channel('typing-indicators')
+      channel.send({
+        type: 'broadcast',
+        event: 'typing',
+        payload: { 
+          player_name: playerName, 
+          is_typing: isTyping,
+          timestamp: Date.now()
+        }
+      })
+      return true
+    } catch (error) {
+      console.error('Erro ao enviar indicador de digitação:', error)
+      return false
+    }
+  },
+
+  // Inscrever-se em indicadores de digitação
+  subscribeToTypingIndicators(callback) {
+    try {
+      const subscription = supabase
+        .channel('typing-indicators')
+        .on('broadcast', { event: 'typing' }, (payload) => {
+          console.log('Indicador de digitação recebido:', payload)
+          callback(payload.payload)
+        })
+        .subscribe()
+      
+      return subscription
+    } catch (error) {
+      console.error('Erro ao criar subscription de digitação:', error)
+      return null
+    }
+  },
+
   // Formatar mensagem para o formato do chat local
   formatMessage(dbMessage) {
     const date = new Date(dbMessage.created_at)
