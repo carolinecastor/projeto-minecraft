@@ -64,7 +64,7 @@ const SeedSection = () => {
     {
       image: aldeiaSeed,
       title: "MONOLITO DA ALDEIA",
-      coords: "--416, 128",
+      coords: "-416, 128",
       seed: "-6537256334104833826",
     },
     {
@@ -126,8 +126,8 @@ const SeedSection = () => {
           ))}
         </div>
       </div>
-      
-      <HelpCard 
+
+      <HelpCard
         title="O QUE É UMA SEED?"
         content="Seeds são códigos únicos que geram mundos específicos no Minecraft. Cada seed cria um mundo com terrenos, estruturas e biomas únicos. Usando a mesma seed, você pode gerar o mesmo mundo quantas vezes quiser! As coordenadas mostram onde encontrar pontos interessantes como aldeias, templos ou estruturas raras."
       />

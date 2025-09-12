@@ -5,6 +5,7 @@ import {
   CharacterSelection,
   GuideSection,
   SeedSection,
+  CraftSection,
 } from "./components/sections";
 import { Transition } from "./components/ui";
 
@@ -30,6 +31,7 @@ function App() {
       <Transition className="-top-28" />
       <GuideSection />
       <SeedSection />
+      <CraftSection />
     </div>
   );
 }
