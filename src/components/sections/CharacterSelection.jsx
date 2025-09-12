@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback } from "react";
 import steven from "../../assets/steven.png";
 import alex from "../../assets/alex.png";
 import stevenCabeca from "../../assets/steven-cabeca.png";
@@ -7,28 +7,36 @@ import transition2 from "../../assets/transition-2.png";
 import { Title, Description } from "../ui";
 
 const CharacterSelection = ({ onCursorChange }) => {
-  const handleStevenClick = () => {
+  const handleStevenClick = useCallback(() => {
     onCursorChange(stevenCabeca);
-  };
+  }, [onCursorChange]);
 
-  const handleAlexClick = () => {
+  const handleAlexClick = useCallback(() => {
     onCursorChange(alexCabeca);
-  };
+  }, [onCursorChange]);
 
   return (
-    <section className="bg-[#1A1A1A] h-[70vh] flex items-center gap-28 relative">
+    <section
+      id="characters"
+      className="bg-[#1A1A1A] h-[70vh] flex items-center gap-28 relative overflow-visible"
+      style={{ contentVisibility: "auto" }}
+    >
       <div className="flex items-center justify-center w-1/2 relative">
         <img
           src={steven}
           alt=""
           className="absolute bottom-10 left-48 cursor-pointer transition-all duration-300 hover:scale-110 hover:brightness-110 hover:drop-shadow-lg"
           onClick={handleStevenClick}
+          loading="lazy"
+          decoding="async"
         />
         <img
           src={alex}
           alt=""
           className="absolute -top-20 right-0 cursor-pointer transition-all duration-300 hover:scale-110 hover:brightness-110 hover:drop-shadow-lg"
           onClick={handleAlexClick}
+          loading="lazy"
+          decoding="async"
         />
       </div>
       <div className="w-1/2 h-full mt-40">
@@ -45,13 +53,6 @@ const CharacterSelection = ({ onCursorChange }) => {
           <br />A imersão começa agora! {""}
           <span className="font-bold">Qual será o seu herói?</span>
         </Description>
-      </div>
-      <div className="">
-        <img
-          className="absolute -bottom-28 left-0 w-full block z-10"
-          src={transition2}
-          alt=""
-        />
       </div>
     </section>
   );

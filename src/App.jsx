@@ -1,25 +1,35 @@
-import { useState } from "react";
-import { Header, HeroSection, CharacterSelection, GuideSection } from "./components/sections";
+import { useState, useCallback, useMemo } from "react";
+import {
+  Header,
+  HeroSection,
+  CharacterSelection,
+  GuideSection,
+  SeedSection,
+} from "./components/sections";
+import { Transition } from "./components/ui";
 
 function App() {
   const [selectedCursor, setSelectedCursor] = useState(null);
 
-  const handleCursorChange = (cursor) => {
+  const handleCursorChange = useCallback((cursor) => {
     setSelectedCursor(cursor);
-  };
+  }, []);
+
+  const cursorStyle = useMemo(
+    () => ({
+      cursor: selectedCursor ? `url(${selectedCursor}) 16 16, auto` : "default",
+    }),
+    [selectedCursor]
+  );
 
   return (
-    <div
-      style={{
-        cursor: selectedCursor
-          ? `url(${selectedCursor}) 16 16, auto`
-          : "default",
-      }}
-    >
+    <div style={cursorStyle}>
       <Header />
       <HeroSection />
       <CharacterSelection onCursorChange={handleCursorChange} />
+      <Transition className="-top-28" />
       <GuideSection />
+      <SeedSection />
     </div>
   );
 }
