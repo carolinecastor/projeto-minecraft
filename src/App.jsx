@@ -33,7 +33,7 @@ function App() {
       <GuideSection />
       <SeedSection />
       <CraftSection />
-      {/* <PedraTransition /> */}
+      <PedraTransition />
       <Footer />
     </div>
   );
