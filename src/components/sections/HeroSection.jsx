@@ -27,11 +27,11 @@ const HeroSection = () => {
       <div className="flex items-center justify-center sm:justify-start h-full container mx-auto px-4 sm:px-5">
         <div className="relative w-full max-w-xs sm:max-w-md lg:max-w-lg">
           <div className="bg-[rgb(30,30,30)] w-full p-4 sm:p-6 relative">
-            <div className="absolute -top-22 right-0 block">
+            <div className="absolute -top-12 sm:-top-16 md:-top-22 right-0 block">
               <img
                 src={detalhes}
                 alt=""
-                className="md:w-auto max-w-none"
+                className="w-24 sm:w-32 md:w-auto max-w-none"
                 loading="lazy"
                 decoding="async"
               />
@@ -50,7 +50,7 @@ const HeroSection = () => {
           </div>
         </div>
         <div className="p-5 absolute bottom-5 -left-10 w-screen">
-          <Transition1 className="-top-20 block z-[100] bg-transparent" />
+          <Transition1 className="-top-12 sm:-top-16 md:-top-20 block z-[100] bg-transparent" />
         </div>
       </div>
     </section>

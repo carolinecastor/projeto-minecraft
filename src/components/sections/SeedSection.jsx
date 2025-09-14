@@ -93,7 +93,7 @@ const SeedSection = () => {
   return (
     <section
       id="seeds"
-      className="relative min-h-screen flex items-center justify-center py-10 sm:py-14 px-4 overflow-hidden -mt-4"
+      className="relative min-h-screen flex items-center justify-center py-10 sm:py-14 px-4 overflow-hidden -mt-2 sm:-mt-3 md:-mt-4"
       style={{ contentVisibility: "auto" }}
     >
       <div

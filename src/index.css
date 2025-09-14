@@ -26,6 +26,7 @@ body {
   margin: 0;
   padding: 0;
   overflow-x: hidden;
+  min-height: 100vh;
 }
 
 h1,
@@ -35,4 +36,24 @@ h4,
 h5,
 h6 {
   font-family: "Minercraftory", "Minecraft", monospace !important;
+}
+
+/* Responsive utilities */
+@media (max-width: 640px) {
+  .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+}
+
+@media (max-width: 768px) {
+  /* Ensure touch targets are large enough */
+  button, a {
+    min-height: 44px;
+  }
 }

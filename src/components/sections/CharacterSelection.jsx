@@ -20,14 +20,14 @@ const CharacterSelection = ({ onCursorChange }) => {
   return (
     <section
       id="characters"
-      className="bg-[#1A1A1A] h-[70vh] flex items-center gap-28 relative overflow-visible"
+      className="bg-[#1A1A1A] min-h-[70vh] md:h-[70vh] flex flex-col md:flex-row items-center gap-8 sm:gap-16 md:gap-28 relative overflow-visible px-4 sm:px-0 py-8 md:py-0"
       style={{ contentVisibility: "auto" }}
     >
-      <div className="flex items-center justify-center w-1/2 relative">
+      <div className="flex items-center justify-center w-full md:w-1/2 relative min-h-[300px] sm:min-h-[350px] md:min-h-[400px]">
         <img
           src={steven}
           alt=""
-          className="absolute -bottom-4 left-48 cursor-pointer transition-all duration-300 hover:scale-110 hover:brightness-110 hover:drop-shadow-lg"
+          className="absolute -bottom-2 sm:-bottom-4 left-4 sm:left-12 md:left-24 lg:left-48 cursor-pointer transition-all duration-300 hover:scale-110 hover:brightness-110 hover:drop-shadow-lg w-24 sm:w-32 md:w-auto"
           onClick={handleStevenClick}
           loading="lazy"
           decoding="async"
@@ -35,17 +35,17 @@ const CharacterSelection = ({ onCursorChange }) => {
         <img
           src={alex}
           alt=""
-          className="absolute -top-15 right-0 cursor-pointer transition-all duration-300 hover:scale-110 hover:brightness-110 hover:drop-shadow-lg"
+          className="absolute -top-6 sm:-top-10 md:-top-15 right-0 sm:right-4 md:right-0 cursor-pointer transition-all duration-300 hover:scale-110 hover:brightness-110 hover:drop-shadow-lg w-24 sm:w-32 md:w-auto"
           onClick={handleAlexClick}
           loading="lazy"
           decoding="async"
         />
       </div>
-      <div className="w-1/2 h-full mt-40">
-        <Title className="text-5xl! w-2/3 leading-20">
+      <div className="w-full md:w-1/2 h-full mt-8 md:mt-40">
+        <Title className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl! w-full md:w-2/3 leading-tight md:leading-20">
           ESCOLHA SEU PERSONAGEM
         </Title>
-        <Description className="w-2/3">
+        <Description className="w-full md:w-2/3">
           Antes de começar, escolha quem vai te acompanhar nessa jornada: {""}
           <span className="font-bold">Steve</span> ou{" "}
           <span className="font-bold">Alex</span>.

@@ -6,7 +6,7 @@ const PedraTransition = () => {
       <img
         src={pedraTransition}
         alt=""
-        className="w-full block -mt-22"
+        className="w-full block -mt-6 scale-[1.75]"
         loading="lazy"
         decoding="async"
       />

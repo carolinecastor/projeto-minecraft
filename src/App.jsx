@@ -29,11 +29,13 @@ function App() {
       <Header />
       <HeroSection />
       <CharacterSelection onCursorChange={handleCursorChange} />
-      <Transition className="-top-28" />
+      <Transition className="hidden md:block -top-16 sm:-top-20 md:-top-28" />
       <GuideSection />
       <SeedSection />
       <CraftSection />
-      <PedraTransition />
+      <div className="hidden md:block">
+        <PedraTransition />
+      </div>
       <Footer />
     </div>
   );

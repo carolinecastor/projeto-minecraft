@@ -212,7 +212,7 @@ const CraftSection = () => {
   return (
     <section
       id="craft"
-      className="relative min-h-screen flex items-center justify-center py-10 sm:py-14 px-4 overflow-hidden -mt-4"
+      className="relative min-h-screen flex items-center justify-center py-10 sm:py-14 px-4 overflow-hidden -mt-2 sm:-mt-3 md:-mt-4"
       style={{
         contentVisibility: "auto",
         fontFamily: "'Minecraft', monospace, Arial, sans-serif",
@@ -228,6 +228,21 @@ const CraftSection = () => {
           imageRendering: "pixelated",
         }}
       />
+
+      {/* Background terra estendido para baixo - Desktop only */}
+      <div className="hidden md:block">
+        <div
+          className="absolute left-0 right-0 bottom-0 h-40 z-0"
+          style={{
+            backgroundImage: `url(${bgPedra})`,
+            backgroundRepeat: "repeat",
+            backgroundSize: "cover",
+            imageRendering: "pixelated",
+            transform: "translateY(80%)",
+            backgroundPosition: "center bottom",
+          }}
+        />
+      </div>
 
       {/* Craft Guide Content */}
       <div className="relative z-10 w-full max-w-7xl mt-16 sm:mt-20">
@@ -266,25 +281,30 @@ const CraftSection = () => {
 
         {/* Creative Inventory Interface */}
         <div
+          className="flex flex-col lg:flex-row justify-center items-center lg:items-start gap-5 lg:gap-5 max-w-7xl mx-auto px-4 lg:px-0"
           style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "flex-start",
-            gap: "20px",
-            maxWidth: "1200px",
+            display: window.innerWidth >= 1024 ? "flex" : "flex",
+            justifyContent: window.innerWidth >= 1024 ? "center" : "center",
+            alignItems: window.innerWidth >= 1024 ? "flex-start" : "center",
+            gap: window.innerWidth >= 1024 ? "20px" : "20px",
+            maxWidth: window.innerWidth >= 1024 ? "1200px" : "100%",
             margin: "0 auto",
+            flexDirection: window.innerWidth >= 1024 ? "row" : "column",
           }}
         >
           {/* Left Panel - Items Inventory */}
           <div
+            className="w-full max-w-md lg:max-w-none"
             style={{
               background: "#C6C6C6",
               border: "2px solid",
               borderColor: "#DFDFDF #8F8F8F #8F8F8F #DFDFDF",
               borderRadius: "4px",
               padding: "12px",
-              width: "500px",
-              height: "490px",
+              width: window.innerWidth >= 1024 ? "500px" : "100%",
+              maxWidth: window.innerWidth >= 1024 ? "500px" : "500px",
+              height: window.innerWidth >= 1024 ? "490px" : "auto",
+              minHeight: window.innerWidth >= 1024 ? "490px" : "320px",
               boxShadow:
                 "inset 1px 1px 0px rgba(255, 255, 255, 0.6), inset -1px -1px 0px rgba(0, 0, 0, 0.3)",
             }}
@@ -408,14 +428,15 @@ const CraftSection = () => {
                 borderColor: "#5F5F5F #BFBFBF #BFBFBF #5F5F5F",
                 borderRadius: "3px",
                 padding: "12px",
-                height: "340px",
+                height: "240px",
                 overflowY: "auto",
               }}
             >
               <div
+                className="grid gap-1 justify-center items-center"
                 style={{
                   display: "grid",
-                  gridTemplateColumns: "repeat(8, 52px)",
+                  gridTemplateColumns: window.innerWidth >= 1024 ? "repeat(8, 52px)" : window.innerWidth < 640 ? "repeat(4, 52px)" : window.innerWidth < 768 ? "repeat(6, 52px)" : "repeat(8, 52px)",
                   gap: "1px",
                   justifyContent: "center",
                   alignItems: "center",
@@ -468,14 +489,17 @@ const CraftSection = () => {
 
           {/* Right Panel - Crafting and Player Inventory */}
           <div
+            className="w-full max-w-md lg:max-w-none"
             style={{
               background: "#C6C6C6",
               border: "2px solid",
               borderColor: "#DFDFDF #8F8F8F #8F8F8F #DFDFDF",
               borderRadius: "4px",
               padding: "12px",
-              width: "500px",
-              height: "490px",
+              width: window.innerWidth >= 1024 ? "500px" : "100%",
+              maxWidth: window.innerWidth >= 1024 ? "500px" : "500px",
+              height: window.innerWidth >= 1024 ? "490px" : "auto",
+              minHeight: window.innerWidth >= 1024 ? "490px" : "320px",
               boxShadow:
                 "inset 1px 1px 0px rgba(255, 255, 255, 0.6), inset -1px -1px 0px rgba(0, 0, 0, 0.3)",
             }}
@@ -549,8 +573,8 @@ const CraftSection = () => {
                                 <div
                                   key={slotIndex}
                                   style={{
-                                    width: "48px",
-                                    height: "48px",
+                                    width: "38px",
+                                    height: "38px",
                                     background: "transparent",
                                     display: "flex",
                                     alignItems: "center",
@@ -568,8 +592,8 @@ const CraftSection = () => {
                                       src={item.texture}
                                       alt={item.readable}
                                       style={{
-                                        width: "32px",
-                                        height: "32px",
+                                        width: "28px",
+                                        height: "28px",
                                         imageRendering: "pixelated",
                                       }}
                                     />
@@ -604,8 +628,8 @@ const CraftSection = () => {
                     {/* Result Slot */}
                     <div
                       style={{
-                        width: "48px",
-                        height: "48px",
+                        width: "38px",
+                        height: "38px",
                         backgroundImage: `url(${quadradoGrid})`,
                         backgroundSize: "100% 100%",
                         backgroundRepeat: "no-repeat",
@@ -627,8 +651,8 @@ const CraftSection = () => {
                           src={selectedItem.texture}
                           alt={selectedItem.readable}
                           style={{
-                            width: "32px",
-                            height: "32px",
+                            width: "28px",
+                            height: "28px",
                             imageRendering: "pixelated",
                           }}
                         />
@@ -683,8 +707,8 @@ const CraftSection = () => {
                         >
                           <div
                             style={{
-                              width: "48px",
-                              height: "48px",
+                              width: "38px",
+                              height: "38px",
                               backgroundImage: `url(${quadradoGrid})`,
                               backgroundSize: "100% 100%",
                               backgroundRepeat: "no-repeat",
@@ -699,8 +723,8 @@ const CraftSection = () => {
                                 src={selectedItem.texture}
                                 alt={selectedItem.readable}
                                 style={{
-                                  width: "32px",
-                                  height: "32px",
+                                  width: "28px",
+                                  height: "28px",
                                   imageRendering: "pixelated",
                                 }}
                               />
@@ -799,18 +823,18 @@ const CraftSection = () => {
                   <div
                     style={{
                       position: "relative",
-                      width: "150px",
-                      height: "150px",
+                      width: "120px",
+                      height: "120px",
                       backgroundImage: `url(${criacaoGrid})`,
                       backgroundSize: "100% 100%",
                       backgroundRepeat: "no-repeat",
                       imageRendering: "pixelated",
                       display: "grid",
-                      gridTemplateColumns: "repeat(3, 48px)",
-                      gap: "3px",
+                      gridTemplateColumns: "repeat(3, 38px)",
+                      gap: "2px",
                       justifyContent: "center",
                       alignItems: "center",
-                      padding: "3px",
+                      padding: "2px",
                     }}
                   >
                     {Array(9)
@@ -819,8 +843,8 @@ const CraftSection = () => {
                         <div
                           key={index}
                           style={{
-                            width: "48px",
-                            height: "48px",
+                            width: "38px",
+                            height: "38px",
                             background: "transparent",
                             display: "flex",
                             alignItems: "center",
@@ -854,8 +878,8 @@ const CraftSection = () => {
                   {/* Result Slot */}
                   <div
                     style={{
-                      width: "48px",
-                      height: "48px",
+                      width: "38px",
+                      height: "38px",
                       backgroundImage: `url(${quadradoGrid})`,
                       backgroundSize: "100% 100%",
                       backgroundRepeat: "no-repeat",
@@ -871,106 +895,107 @@ const CraftSection = () => {
               )}
             </div>
 
-            {/* Player Inventory Label */}
-            <div
-              style={{
-                padding: "8px 16px",
-                marginBottom: "-8px",
-                fontSize: "20px",
-                fontFamily: "'Minecraft', monospace",
-                color: "#404040",
-                textAlign: "left",
-                fontWeight: "normal",
-              }}
-            >
-              Inventário
-            </div>
-
-            {/* Player Inventory Grid */}
-            <div
-              style={{
-                padding: "0px 12px 12px 12px",
-              }}
-            >
+            {/* Player Inventory - Hidden on mobile */}
+            <div className="hidden lg:block">
               <div
                 style={{
-                  position: "relative",
-                  width: "450px",
-                  height: "155px",
-                  backgroundImage: `url(${inventarioGrid})`,
-                  backgroundSize: "100% 100%",
-                  backgroundRepeat: "no-repeat",
-                  imageRendering: "pixelated",
-                  display: "grid",
-                  gridTemplateColumns: "repeat(9, 48px)",
-                  gridTemplateRows: "repeat(3, 48px)",
-                  gap: "2px",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  padding: "3px",
-                  margin: "0 auto",
+                  padding: "8px 16px",
+                  marginBottom: "-8px",
+                  fontSize: "20px",
+                  fontFamily: "'Minecraft', monospace",
+                  color: "#404040",
+                  textAlign: "left",
+                  fontWeight: "normal",
                 }}
               >
-                {(() => {
-                  // Itens específicos para o inventário
-                  const inventoryItems = [
-                    // Primeira linha
-                    { item: craftableItems.find(item => item.name === 'diamond' || item.readable?.toLowerCase() === 'diamante'), slot: 0 },
-                    { item: craftableItems.find(item => item.name === 'netherite_sword' || item.readable?.toLowerCase().includes('espada') && item.readable?.toLowerCase().includes('netherite')), slot: 1 },
-                    { item: craftableItems.find(item => item.name === 'diamond' || item.readable?.toLowerCase() === 'diamante'), slot: 4 },
-                    { item: craftableItems.find(item => item.name?.includes('cookie') || item.readable?.toLowerCase().includes('biscoito')), slot: 5 },
-                    { item: craftableItems.find(item => item.name?.includes('player_head') || item.name?.includes('skull') || item.readable?.toLowerCase().includes('cabeça')), slot: 8 },
+                Inventário
+              </div>
 
-                    // Segunda linha
-                    { item: craftableItems.find(item => item.name?.includes('stick') || item.readable?.toLowerCase().includes('graveto')), slot: 11 },
-                    { item: craftableItems.find(item => item.name === 'diamond' || item.readable?.toLowerCase() === 'diamante'), slot: 13 },
-                    { item: craftableItems.find(item => item.name?.includes('stick') || item.readable?.toLowerCase().includes('graveto')), slot: 16 },
-                    { item: craftableItems.find(item => item.name?.includes('stick') || item.readable?.toLowerCase().includes('graveto')), slot: 17 },
+              <div
+                style={{
+                  padding: "0px 12px 12px 12px",
+                }}
+              >
+                <div
+                  style={{
+                    position: "relative",
+                    width: "450px",
+                    height: "155px",
+                    backgroundImage: `url(${inventarioGrid})`,
+                    backgroundSize: "100% 100%",
+                    backgroundRepeat: "no-repeat",
+                    imageRendering: "pixelated",
+                    display: "grid",
+                    gridTemplateColumns: "repeat(9, 48px)",
+                    gridTemplateRows: "repeat(3, 48px)",
+                    gap: "2px",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    padding: "3px",
+                    margin: "0 auto",
+                  }}
+                >
+                  {(() => {
+                    // Itens específicos para o inventário
+                    const inventoryItems = [
+                      // Primeira linha
+                      { item: craftableItems.find(item => item.name === 'diamond' || item.readable?.toLowerCase() === 'diamante'), slot: 0 },
+                      { item: craftableItems.find(item => item.name === 'netherite_sword' || item.readable?.toLowerCase().includes('espada') && item.readable?.toLowerCase().includes('netherite')), slot: 1 },
+                      { item: craftableItems.find(item => item.name === 'diamond' || item.readable?.toLowerCase() === 'diamante'), slot: 4 },
+                      { item: craftableItems.find(item => item.name?.includes('cookie') || item.readable?.toLowerCase().includes('biscoito')), slot: 5 },
+                      { item: craftableItems.find(item => item.name?.includes('player_head') || item.name?.includes('skull') || item.readable?.toLowerCase().includes('cabeça')), slot: 8 },
 
-                    // Terceira linha
-                    { item: craftableItems.find(item => item.name === 'diamond' || item.readable?.toLowerCase() === 'diamante'), slot: 20 },
-                    { item: craftableItems.find(item => item.name?.includes('stick') || item.readable?.toLowerCase().includes('graveto')), slot: 26 },
-                  ].filter(item => item.item); // Remove itens não encontrados
+                      // Segunda linha
+                      { item: craftableItems.find(item => item.name?.includes('stick') || item.readable?.toLowerCase().includes('graveto')), slot: 11 },
+                      { item: craftableItems.find(item => item.name === 'diamond' || item.readable?.toLowerCase() === 'diamante'), slot: 13 },
+                      { item: craftableItems.find(item => item.name?.includes('stick') || item.readable?.toLowerCase().includes('graveto')), slot: 16 },
+                      { item: craftableItems.find(item => item.name?.includes('stick') || item.readable?.toLowerCase().includes('graveto')), slot: 17 },
 
-                  return Array(27)
-                    .fill(null)
-                    .map((_, index) => {
-                      const inventoryItem = inventoryItems.find(inv => inv.slot === index);
-                      const item = inventoryItem ? inventoryItem.item : null;
+                      // Terceira linha
+                      { item: craftableItems.find(item => item.name === 'diamond' || item.readable?.toLowerCase() === 'diamante'), slot: 20 },
+                      { item: craftableItems.find(item => item.name?.includes('stick') || item.readable?.toLowerCase().includes('graveto')), slot: 26 },
+                    ].filter(item => item.item); // Remove itens não encontrados
 
-                      return (
-                        <div
-                          key={index}
-                          style={{
-                            width: "48px",
-                            height: "48px",
-                            background: "transparent",
-                            display: "flex",
-                            alignItems: "center",
-                            justifyContent: "center",
-                          }}
-                          onMouseEnter={(e) => {
-                            if (item) {
-                              handleItemHover(item, e);
-                            }
-                          }}
-                          onMouseLeave={handleItemLeave}
-                        >
-                          {item?.texture && (
-                            <img
-                              src={item.texture}
-                              alt={item.readable}
-                              style={{
-                                width: "32px",
-                                height: "32px",
-                                imageRendering: "pixelated",
-                              }}
-                            />
-                          )}
-                        </div>
-                      );
-                    });
-                })()}
+                    return Array(27)
+                      .fill(null)
+                      .map((_, index) => {
+                        const inventoryItem = inventoryItems.find(inv => inv.slot === index);
+                        const item = inventoryItem ? inventoryItem.item : null;
+
+                        return (
+                          <div
+                            key={index}
+                            style={{
+                              width: "48px",
+                              height: "48px",
+                              background: "transparent",
+                              display: "flex",
+                              alignItems: "center",
+                              justifyContent: "center",
+                            }}
+                            onMouseEnter={(e) => {
+                              if (item) {
+                                handleItemHover(item, e);
+                              }
+                            }}
+                            onMouseLeave={handleItemLeave}
+                          >
+                            {item?.texture && (
+                              <img
+                                src={item.texture}
+                                alt={item.readable}
+                                style={{
+                                  width: "32px",
+                                  height: "32px",
+                                  imageRendering: "pixelated",
+                                }}
+                              />
+                            )}
+                          </div>
+                        );
+                      });
+                  })()}
+                </div>
               </div>
             </div>
           </div>
@@ -1008,13 +1033,16 @@ const CraftSection = () => {
         content="Este guia mostra receitas da MESA DE CRAFTING do Minecraft. Alguns itens precisam de outros equipamentos especiais como Fornalha (lingots, vidro), Mesa de Ferraria (netherite), Suporte de Poções (poções) ou Mesa de Encantamento (itens encantados). Quando não aparece receita, o item pode precisar desses equipamentos especiais ou ser um drop natural!"
       />
 
-      <img
-        className="pointer-events-none absolute left-0 w-full block z-[100] -top-13"
-        src={terraTransition}
-        alt=""
-        loading="lazy"
-        decoding="async"
-      />
+      {/* Terra transition - Desktop only */}
+      <div className="hidden md:block">
+        <img
+          className="pointer-events-none absolute left-0 w-full block z-[100] -top-2 scale-[2]"
+          src={terraTransition}
+          alt=""
+          loading="lazy"
+          decoding="async"
+        />
+      </div>
     </section>
   );
 };

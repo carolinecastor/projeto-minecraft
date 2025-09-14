@@ -236,9 +236,9 @@ const GuideCard = () => {
         </Title>
       </div>
 
-      <div className="flex">
+      <div className="flex flex-col lg:flex-row">
         {/* Navigation Tabs */}
-        <div className="w-1/3">
+        <div className="w-full lg:w-1/3 mb-4 lg:mb-0">
           {tabs.map((tab, index) => (
             <TabItem
               key={tab.id}
@@ -252,9 +252,9 @@ const GuideCard = () => {
         </div>
 
         {/* Content Area */}
-        <div className="w-2/3">
+        <div className="w-full lg:w-2/3">
           <div
-            className="overflow-hidden h-[600px] flex flex-col"
+            className="overflow-hidden h-[400px] sm:h-[500px] lg:h-[600px] flex flex-col"
             style={contentAreaStyle}
           >
             {/* Image Display */}
@@ -262,7 +262,7 @@ const GuideCard = () => {
               <img
                 src={currentStep.image}
                 alt="Guide content"
-                className="w-full h-80 object-cover rounded-lg"
+                className="w-full h-48 sm:h-64 lg:h-80 object-cover rounded-lg"
                 loading="lazy"
               />
             </div>
