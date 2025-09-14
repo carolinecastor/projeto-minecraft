@@ -1,6 +1,10 @@
 import { useState, useEffect } from "react";
 import terraTransition from "../../assets/terra-transition.png";
 import bgPedra from "../../assets/bg-pedra.webp";
+import cetaIcon from "../../assets/ceta.png";
+import criacaoGrid from "../../assets/criacao.png";
+import inventarioGrid from "../../assets/inventario.png";
+import quadradoGrid from "../../assets/quadrado.png";
 
 // Import category icons
 import paredeCategoryIcon from "../../assets/parede.png";
@@ -16,6 +20,7 @@ import {
   getSpecialCraftingInfo,
 } from "../../utils/craftHelper";
 import { HelpCard } from "../ui";
+import { playClickSound } from "../../utils/soundUtils";
 
 const CraftSection = () => {
   const [selectedItem, setSelectedItem] = useState(null);
@@ -25,7 +30,7 @@ const CraftSection = () => {
   const [showSearch, setShowSearch] = useState(false);
   const [animationIndex, setAnimationIndex] = useState(0);
   const [hoveredItem, setHoveredItem] = useState(null);
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [tooltipPosition, setTooltipPosition] = useState({ x: 0, y: 0 });
 
   const craftableItems = getCraftableItems();
 
@@ -35,7 +40,24 @@ const CraftSection = () => {
       icon: paredeCategoryIcon,
       name: "Blocos",
       items: craftableItems.filter((item) =>
-        ["stone", "wood", "planks", "brick", "cobblestone", "sand", "gravel", "dirt", "grass", "log", "leaves", "wool", "concrete", "terracotta", "glass", "obsidian"].some(
+        [
+          "stone",
+          "wood",
+          "planks",
+          "brick",
+          "cobblestone",
+          "sand",
+          "gravel",
+          "dirt",
+          "grass",
+          "log",
+          "leaves",
+          "wool",
+          "concrete",
+          "terracotta",
+          "glass",
+          "obsidian",
+        ].some(
           (keyword) =>
             item.name?.toLowerCase().includes(keyword) ||
             item.readable?.toLowerCase().includes(keyword)
@@ -46,7 +68,23 @@ const CraftSection = () => {
       icon: espadeArmaduraCategoryIcon,
       name: "Ferramentas",
       items: craftableItems.filter((item) =>
-        ["sword", "pickaxe", "axe", "shovel", "hoe", "bow", "arrow", "armor", "helmet", "chestplate", "leggings", "boots", "shield", "tool", "weapon"].some(
+        [
+          "sword",
+          "pickaxe",
+          "axe",
+          "shovel",
+          "hoe",
+          "bow",
+          "arrow",
+          "armor",
+          "helmet",
+          "chestplate",
+          "leggings",
+          "boots",
+          "shield",
+          "tool",
+          "weapon",
+        ].some(
           (keyword) =>
             item.name?.toLowerCase().includes(keyword) ||
             item.readable?.toLowerCase().includes(keyword)
@@ -57,7 +95,28 @@ const CraftSection = () => {
       icon: camaCategoryIcon,
       name: "Móveis",
       items: craftableItems.filter((item) =>
-        ["bed", "chair", "table", "chest", "furnace", "crafting", "brewing", "enchanting", "anvil", "cauldron", "composter", "barrel", "smoker", "blast_furnace", "stonecutter", "grindstone", "cartography", "fletching", "smithing", "loom"].some(
+        [
+          "bed",
+          "chair",
+          "table",
+          "chest",
+          "furnace",
+          "crafting",
+          "brewing",
+          "enchanting",
+          "anvil",
+          "cauldron",
+          "composter",
+          "barrel",
+          "smoker",
+          "blast_furnace",
+          "stonecutter",
+          "grindstone",
+          "cartography",
+          "fletching",
+          "smithing",
+          "loom",
+        ].some(
           (keyword) =>
             item.name?.toLowerCase().includes(keyword) ||
             item.readable?.toLowerCase().includes(keyword)
@@ -68,7 +127,27 @@ const CraftSection = () => {
       icon: florCategoryIcon,
       name: "Decoração",
       items: craftableItems.filter((item) =>
-        ["flower", "painting", "item_frame", "banner", "carpet", "candle", "torch", "lantern", "redstone_lamp", "sea_lantern", "glowstone", "shroomlight", "end_rod", "beacon", "conduit", "head", "skull", "pot", "decoration"].some(
+        [
+          "flower",
+          "painting",
+          "item_frame",
+          "banner",
+          "carpet",
+          "candle",
+          "torch",
+          "lantern",
+          "redstone_lamp",
+          "sea_lantern",
+          "glowstone",
+          "shroomlight",
+          "end_rod",
+          "beacon",
+          "conduit",
+          "head",
+          "skull",
+          "pot",
+          "decoration",
+        ].some(
           (keyword) =>
             item.name?.toLowerCase().includes(keyword) ||
             item.readable?.toLowerCase().includes(keyword)
@@ -82,7 +161,9 @@ const CraftSection = () => {
     },
   };
 
-  const activeItems = showSearch ? craftableItems : (categories[activeTab]?.items || []);
+  const activeItems = showSearch
+    ? craftableItems
+    : categories[activeTab]?.items || [];
   const filteredItems = activeItems.filter(
     (item) =>
       item.readable?.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -90,6 +171,7 @@ const CraftSection = () => {
   );
 
   const handleItemClick = (item, index) => {
+    playClickSound();
     const itemWithId = { ...item, id: item.id !== undefined ? item.id : index };
     setSelectedItem(itemWithId);
     setSelectedRecipeIndex(0);
@@ -114,14 +196,13 @@ const CraftSection = () => {
   const animatedRecipe =
     recipes.length > 1 ? recipes[animationIndex] : currentRecipe;
 
-  // Handle mouse move for tooltip positioning
-  const handleMouseMove = (e) => {
-    setMousePosition({ x: e.clientX, y: e.clientY });
-  };
-
   const handleItemHover = (item, e) => {
     setHoveredItem(item);
-    handleMouseMove(e);
+    const rect = e.currentTarget.getBoundingClientRect();
+    setTooltipPosition({
+      x: rect.right + 10,
+      y: rect.top + rect.height - 10,
+    });
   };
 
   const handleItemLeave = () => {
@@ -208,7 +289,6 @@ const CraftSection = () => {
                 "inset 1px 1px 0px rgba(255, 255, 255, 0.6), inset -1px -1px 0px rgba(0, 0, 0, 0.3)",
             }}
           >
-
             {/* Category Tabs with integrated search */}
             <div
               style={{
@@ -227,102 +307,98 @@ const CraftSection = () => {
                   gap: "1px",
                 }}
               >
-              {Object.entries(categories).map(([key, category]) => (
-                <button
-                  key={key}
-                  onClick={() => {
-                    if (key === "search") {
-                      setShowSearch(!showSearch);
-                      if (!showSearch) {
-                        setActiveTab(key);
+                {Object.entries(categories).map(([key, category]) => (
+                  <button
+                    key={key}
+                    onClick={() => {
+                      playClickSound();
+                      if (key === "search") {
+                        setShowSearch(!showSearch);
+                        if (!showSearch) {
+                          setActiveTab(key);
+                        } else {
+                          setActiveTab("blocks");
+                          setSearchTerm("");
+                        }
                       } else {
-                        setActiveTab("blocks");
+                        setActiveTab(key);
+                        setShowSearch(false);
                         setSearchTerm("");
                       }
-                    } else {
-                      setActiveTab(key);
-                      setShowSearch(false);
-                      setSearchTerm("");
-                    }
-                  }}
-                  style={{
-                    width: "56px",
-                    height: "56px",
-                    background: (activeTab === key || (key === "search" && showSearch)) ? "#D0D0D0" : "#A8A8A8",
-                    border: "1px solid",
-                    borderColor:
-                      (activeTab === key || (key === "search" && showSearch))
-                        ? "#6F6F6F #DFDFDF #DFDFDF #6F6F6F"
-                        : "#DFDFDF #6F6F6F #6F6F6F #DFDFDF",
-                    borderRadius: "2px",
-                    cursor: "pointer",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    fontFamily: "'Minecraft', monospace",
-                    boxShadow:
-                      (activeTab === key || (key === "search" && showSearch))
-                        ? "inset 1px 1px 2px rgba(0, 0, 0, 0.2)"
-                        : "inset 1px 1px 0px rgba(255, 255, 255, 0.4)",
-                    padding: "6px",
-                  }}
-                >
-                  <img
-                    src={category.icon}
-                    alt={category.name}
-                    style={{
-                      width: "40px",
-                      height: "40px",
-                      imageRendering: "pixelated",
                     }}
-                  />
-                </button>
-              ))}
+                    style={{
+                      width: "56px",
+                      height: "56px",
+                      backgroundImage: `url(${quadradoGrid})`,
+                      backgroundSize: "100% 100%",
+                      backgroundRepeat: "no-repeat",
+                      imageRendering: "pixelated",
+                      filter:
+                        activeTab === key || (key === "search" && showSearch)
+                          ? "brightness(1.2)"
+                          : "brightness(1)",
+                      cursor: "pointer",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      fontFamily: "'Minecraft', monospace",
+                      padding: "6px",
+                      transition: "filter 0.1s ease",
+                    }}
+                  >
+                    <img
+                      src={category.icon}
+                      alt={category.name}
+                      style={{
+                        width: "40px",
+                        height: "40px",
+                        imageRendering: "pixelated",
+                      }}
+                    />
+                  </button>
+                ))}
               </div>
-
-              {/* Search Bar (conditional, appears beside lupa) */}
-              {showSearch && (
-                <input
-                  type="text"
-                  placeholder="Pesquisar itens..."
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  style={{
-                    padding: "6px 12px",
-                    background: "#FFFFFF",
-                    border: "1px solid",
-                    borderColor: "#8F8F8F #DFDFDF #DFDFDF #8F8F8F",
-                    borderRadius: "2px",
-                    fontSize: "12px",
-                    fontFamily: "'Minecraft', monospace",
-                    outline: "none",
-                    width: "150px",
-                    height: "56px",
-                    boxSizing: "border-box",
-                  }}
-                  autoFocus
-                />
-              )}
             </div>
 
-            {/* Items Label */}
-            <div
-              style={{
-                background: "#9F9F9F",
-                padding: "6px 12px",
-                marginBottom: "8px",
-                border: "1px solid",
-                borderColor: "#6F6F6F #DFDFDF #DFDFDF #6F6F6F",
-                borderRadius: "2px",
-                fontSize: "12px",
-                fontFamily: "'Minecraft', monospace",
-                color: "#FFFFFF",
-                textShadow: "1px 1px 0px #000000",
-                fontWeight: "bold",
-              }}
-            >
-              {showSearch ? "Busca" : categories[activeTab]?.name || "Itens"}
-            </div>
+            {/* Items Label / Search Input */}
+            {showSearch ? (
+              <input
+                type="text"
+                placeholder="Buscar"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                style={{
+                  background: "#9F9F9F",
+                  padding: "6px 12px",
+                  marginBottom: "8px",
+                  border: "1px solid",
+                  borderColor: "#6F6F6F #DFDFDF #DFDFDF #6F6F6F",
+                  borderRadius: "2px",
+                  fontSize: "18px",
+                  fontFamily: "'Minecraft', monospace",
+                  color: "#FFFFFF",
+                  textShadow: "1px 1px 0px #000000",
+                  fontWeight: "bold",
+                  outline: "none",
+                  width: "100%",
+                  boxSizing: "border-box",
+                }}
+                autoFocus
+              />
+            ) : (
+              <div
+                style={{
+                  padding: "6px 12px",
+                  marginBottom: "8px",
+                  fontSize: "20px",
+                  fontFamily: "'Minecraft', monospace",
+                  color: "#404040",
+                  fontWeight: "normal",
+                }}
+              >
+                {categories[activeTab]?.name || "Itens"}
+              </div>
+            )}
 
             {/* Items Grid */}
             <div
@@ -339,9 +415,10 @@ const CraftSection = () => {
               <div
                 style={{
                   display: "grid",
-                  gridTemplateColumns: "repeat(8, 48px)",
-                  gap: "3px",
+                  gridTemplateColumns: "repeat(8, 52px)",
+                  gap: "1px",
                   justifyContent: "center",
+                  alignItems: "center",
                 }}
               >
                 {filteredItems.map((item, index) => (
@@ -349,38 +426,36 @@ const CraftSection = () => {
                     key={item.id !== undefined ? item.id : index}
                     onClick={() => handleItemClick(item, index)}
                     style={{
-                      width: "48px",
-                      height: "48px",
-                      background: "#A8A8A8",
-                      border: "1px solid",
-                      borderColor: "#CFCFCF #7F7F7F #7F7F7F #CFCFCF",
-                      borderRadius: "3px",
+                      width: "52px",
+                      height: "52px",
+                      backgroundImage: `url(${quadradoGrid})`,
+                      backgroundSize: "100% 100%",
+                      backgroundRepeat: "no-repeat",
+                      imageRendering: "pixelated",
                       cursor: "pointer",
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
-                      boxShadow: "inset 1px 1px 0px rgba(255, 255, 255, 0.4)",
                       transition: "all 0.1s ease",
                     }}
                     onMouseEnter={(e) => {
-                      e.currentTarget.style.background = "#B8B8B8";
+                      e.currentTarget.style.filter = "brightness(1.1)";
                       e.currentTarget.style.transform = "scale(1.05)";
                       handleItemHover(item, e);
                     }}
                     onMouseLeave={(e) => {
-                      e.currentTarget.style.background = "#A8A8A8";
+                      e.currentTarget.style.filter = "brightness(1)";
                       e.currentTarget.style.transform = "scale(1)";
                       handleItemLeave();
                     }}
-                    onMouseMove={handleMouseMove}
                   >
                     {item.texture && (
                       <img
                         src={item.texture}
                         alt={item.readable}
                         style={{
-                          width: "32px",
-                          height: "32px",
+                          width: "34px",
+                          height: "34px",
                           imageRendering: "pixelated",
                         }}
                       />
@@ -400,7 +475,7 @@ const CraftSection = () => {
               borderRadius: "4px",
               padding: "12px",
               width: "500px",
-              height: "fit-content",
+              height: "490px",
               boxShadow:
                 "inset 1px 1px 0px rgba(255, 255, 255, 0.6), inset -1px -1px 0px rgba(0, 0, 0, 0.3)",
             }}
@@ -408,30 +483,21 @@ const CraftSection = () => {
             {/* Crafting Area Label */}
             <div
               style={{
-                background: "#9F9F9F",
-                padding: "6px 12px",
-                marginBottom: "8px",
-                border: "1px solid",
-                borderColor: "#6F6F6F #DFDFDF #DFDFDF #6F6F6F",
-                borderRadius: "2px",
-                fontSize: "12px",
+                padding: "8px 16px",
+                marginBottom: "12px",
+                fontSize: "20px",
                 fontFamily: "'Minecraft', monospace",
-                color: "#FFFFFF",
-                textShadow: "1px 1px 0px #000000",
-                textAlign: "center",
-                fontWeight: "bold",
+                color: "#404040",
+                textAlign: "left",
+                fontWeight: "normal",
               }}
             >
-              Criação
+              Criando
             </div>
 
             {/* Crafting Content */}
             <div
               style={{
-                background: "#8F8F8F",
-                border: "2px solid",
-                borderColor: "#5F5F5F #BFBFBF #BFBFBF #5F5F5F",
-                borderRadius: "3px",
                 padding: "16px",
                 marginBottom: "16px",
                 minHeight: "180px",
@@ -451,10 +517,19 @@ const CraftSection = () => {
                     {/* 3x3 Crafting Grid */}
                     <div
                       style={{
+                        position: "relative",
+                        width: "150px",
+                        height: "150px",
+                        backgroundImage: `url(${criacaoGrid})`,
+                        backgroundSize: "100% 100%",
+                        backgroundRepeat: "no-repeat",
+                        imageRendering: "pixelated",
                         display: "grid",
                         gridTemplateColumns: "repeat(3, 48px)",
                         gap: "3px",
-                        background: "transparent",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        padding: "3px",
                       }}
                     >
                       {(() => {
@@ -476,15 +551,10 @@ const CraftSection = () => {
                                   style={{
                                     width: "48px",
                                     height: "48px",
-                                    background: "#A8A8A8",
-                                    border: "1px solid",
-                                    borderColor:
-                                      "#CFCFCF #7F7F7F #7F7F7F #CFCFCF",
+                                    background: "transparent",
                                     display: "flex",
                                     alignItems: "center",
                                     justifyContent: "center",
-                                    boxShadow:
-                                      "inset 1px 1px 0px rgba(255, 255, 255, 0.4)",
                                   }}
                                   onMouseEnter={(e) => {
                                     if (item) {
@@ -492,7 +562,6 @@ const CraftSection = () => {
                                     }
                                   }}
                                   onMouseLeave={handleItemLeave}
-                                  onMouseMove={handleMouseMove}
                                 >
                                   {item?.texture && (
                                     <img
@@ -516,12 +585,20 @@ const CraftSection = () => {
                     {/* Arrow */}
                     <div
                       style={{
-                        fontSize: "24px",
-                        color: "#5F5F5F",
-                        fontWeight: "bold",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
                       }}
                     >
-                      →
+                      <img
+                        src={cetaIcon}
+                        alt="Arrow"
+                        style={{
+                          width: "72px",
+                          height: "48px",
+                          imageRendering: "pixelated",
+                        }}
+                      />
                     </div>
 
                     {/* Result Slot */}
@@ -529,13 +606,13 @@ const CraftSection = () => {
                       style={{
                         width: "48px",
                         height: "48px",
-                        background: "#A8A8A8",
-                        border: "1px solid",
-                        borderColor: "#CFCFCF #7F7F7F #7F7F7F #CFCFCF",
+                        backgroundImage: `url(${quadradoGrid})`,
+                        backgroundSize: "100% 100%",
+                        backgroundRepeat: "no-repeat",
+                        imageRendering: "pixelated",
                         display: "flex",
                         alignItems: "center",
                         justifyContent: "center",
-                        boxShadow: "inset 1px 1px 0px rgba(255, 255, 255, 0.4)",
                         position: "relative",
                       }}
                       onMouseEnter={(e) => {
@@ -544,7 +621,6 @@ const CraftSection = () => {
                         }
                       }}
                       onMouseLeave={handleItemLeave}
-                      onMouseMove={handleMouseMove}
                     >
                       {selectedItem?.texture && (
                         <img
@@ -609,14 +685,13 @@ const CraftSection = () => {
                             style={{
                               width: "48px",
                               height: "48px",
-                              background: "#A8A8A8",
-                              border: "1px solid",
-                              borderColor: "#CFCFCF #7F7F7F #7F7F7F #CFCFCF",
+                              backgroundImage: `url(${quadradoGrid})`,
+                              backgroundSize: "100% 100%",
+                              backgroundRepeat: "no-repeat",
+                              imageRendering: "pixelated",
                               display: "flex",
                               alignItems: "center",
                               justifyContent: "center",
-                              boxShadow:
-                                "inset 1px 1px 0px rgba(255, 255, 255, 0.4)",
                             }}
                           >
                             {selectedItem?.texture && (
@@ -723,10 +798,19 @@ const CraftSection = () => {
                   {/* 3x3 Crafting Grid */}
                   <div
                     style={{
+                      position: "relative",
+                      width: "150px",
+                      height: "150px",
+                      backgroundImage: `url(${criacaoGrid})`,
+                      backgroundSize: "100% 100%",
+                      backgroundRepeat: "no-repeat",
+                      imageRendering: "pixelated",
                       display: "grid",
                       gridTemplateColumns: "repeat(3, 48px)",
                       gap: "3px",
-                      background: "transparent",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      padding: "3px",
                     }}
                   >
                     {Array(9)
@@ -737,14 +821,10 @@ const CraftSection = () => {
                           style={{
                             width: "48px",
                             height: "48px",
-                            background: "#A8A8A8",
-                            border: "1px solid",
-                            borderColor: "#CFCFCF #7F7F7F #7F7F7F #CFCFCF",
+                            background: "transparent",
                             display: "flex",
                             alignItems: "center",
                             justifyContent: "center",
-                            boxShadow:
-                              "inset 1px 1px 0px rgba(255, 255, 255, 0.4)",
                           }}
                         >
                           {/* Empty slot */}
@@ -755,12 +835,20 @@ const CraftSection = () => {
                   {/* Arrow */}
                   <div
                     style={{
-                      fontSize: "24px",
-                      color: "#5F5F5F",
-                      fontWeight: "bold",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
                     }}
                   >
-                    →
+                    <img
+                      src={cetaIcon}
+                      alt="Arrow"
+                      style={{
+                        width: "72px",
+                        height: "48px",
+                        imageRendering: "pixelated",
+                      }}
+                    />
                   </div>
 
                   {/* Result Slot */}
@@ -768,13 +856,13 @@ const CraftSection = () => {
                     style={{
                       width: "48px",
                       height: "48px",
-                      background: "#A8A8A8",
-                      border: "1px solid",
-                      borderColor: "#CFCFCF #7F7F7F #7F7F7F #CFCFCF",
+                      backgroundImage: `url(${quadradoGrid})`,
+                      backgroundSize: "100% 100%",
+                      backgroundRepeat: "no-repeat",
+                      imageRendering: "pixelated",
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
-                      boxShadow: "inset 1px 1px 0px rgba(255, 255, 255, 0.4)",
                     }}
                   >
                     {/* Result will appear here */}
@@ -786,17 +874,13 @@ const CraftSection = () => {
             {/* Player Inventory Label */}
             <div
               style={{
-                background: "#9F9F9F",
-                padding: "6px 12px",
-                marginBottom: "8px",
-                border: "1px solid",
-                borderColor: "#6F6F6F #DFDFDF #DFDFDF #6F6F6F",
-                borderRadius: "2px",
-                fontSize: "12px",
+                padding: "8px 16px",
+                marginBottom: "-8px",
+                fontSize: "20px",
                 fontFamily: "'Minecraft', monospace",
-                color: "#FFFFFF",
-                textShadow: "1px 1px 0px #000000",
-                fontWeight: "bold",
+                color: "#404040",
+                textAlign: "left",
+                fontWeight: "normal",
               }}
             >
               Inventário
@@ -805,41 +889,88 @@ const CraftSection = () => {
             {/* Player Inventory Grid */}
             <div
               style={{
-                background: "#8F8F8F",
-                border: "2px solid",
-                borderColor: "#5F5F5F #BFBFBF #BFBFBF #5F5F5F",
-                borderRadius: "3px",
-                padding: "12px",
+                padding: "0px 12px 12px 12px",
               }}
             >
               <div
                 style={{
+                  position: "relative",
+                  width: "450px",
+                  height: "155px",
+                  backgroundImage: `url(${inventarioGrid})`,
+                  backgroundSize: "100% 100%",
+                  backgroundRepeat: "no-repeat",
+                  imageRendering: "pixelated",
                   display: "grid",
                   gridTemplateColumns: "repeat(9, 48px)",
-                  gap: "3px",
+                  gridTemplateRows: "repeat(3, 48px)",
+                  gap: "2px",
                   justifyContent: "center",
+                  alignItems: "center",
+                  padding: "3px",
+                  margin: "0 auto",
                 }}
               >
-                {Array(27)
-                  .fill(null)
-                  .map((_, index) => (
-                    <div
-                      key={index}
-                      style={{
-                        width: "48px",
-                        height: "48px",
-                        background: "#A8A8A8",
-                        border: "1px solid",
-                        borderColor: "#CFCFCF #7F7F7F #7F7F7F #CFCFCF",
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        boxShadow: "inset 1px 1px 0px rgba(255, 255, 255, 0.4)",
-                      }}
-                    >
-                      {/* Empty inventory slots */}
-                    </div>
-                  ))}
+                {(() => {
+                  // Itens específicos para o inventário
+                  const inventoryItems = [
+                    // Primeira linha
+                    { item: craftableItems.find(item => item.name === 'diamond' || item.readable?.toLowerCase() === 'diamante'), slot: 0 },
+                    { item: craftableItems.find(item => item.name === 'netherite_sword' || item.readable?.toLowerCase().includes('espada') && item.readable?.toLowerCase().includes('netherite')), slot: 1 },
+                    { item: craftableItems.find(item => item.name === 'diamond' || item.readable?.toLowerCase() === 'diamante'), slot: 4 },
+                    { item: craftableItems.find(item => item.name?.includes('cookie') || item.readable?.toLowerCase().includes('biscoito')), slot: 5 },
+                    { item: craftableItems.find(item => item.name?.includes('player_head') || item.name?.includes('skull') || item.readable?.toLowerCase().includes('cabeça')), slot: 8 },
+
+                    // Segunda linha
+                    { item: craftableItems.find(item => item.name?.includes('stick') || item.readable?.toLowerCase().includes('graveto')), slot: 11 },
+                    { item: craftableItems.find(item => item.name === 'diamond' || item.readable?.toLowerCase() === 'diamante'), slot: 13 },
+                    { item: craftableItems.find(item => item.name?.includes('stick') || item.readable?.toLowerCase().includes('graveto')), slot: 16 },
+                    { item: craftableItems.find(item => item.name?.includes('stick') || item.readable?.toLowerCase().includes('graveto')), slot: 17 },
+
+                    // Terceira linha
+                    { item: craftableItems.find(item => item.name === 'diamond' || item.readable?.toLowerCase() === 'diamante'), slot: 20 },
+                    { item: craftableItems.find(item => item.name?.includes('stick') || item.readable?.toLowerCase().includes('graveto')), slot: 26 },
+                  ].filter(item => item.item); // Remove itens não encontrados
+
+                  return Array(27)
+                    .fill(null)
+                    .map((_, index) => {
+                      const inventoryItem = inventoryItems.find(inv => inv.slot === index);
+                      const item = inventoryItem ? inventoryItem.item : null;
+
+                      return (
+                        <div
+                          key={index}
+                          style={{
+                            width: "48px",
+                            height: "48px",
+                            background: "transparent",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                          }}
+                          onMouseEnter={(e) => {
+                            if (item) {
+                              handleItemHover(item, e);
+                            }
+                          }}
+                          onMouseLeave={handleItemLeave}
+                        >
+                          {item?.texture && (
+                            <img
+                              src={item.texture}
+                              alt={item.readable}
+                              style={{
+                                width: "32px",
+                                height: "32px",
+                                imageRendering: "pixelated",
+                              }}
+                            />
+                          )}
+                        </div>
+                      );
+                    });
+                })()}
               </div>
             </div>
           </div>
@@ -851,8 +982,8 @@ const CraftSection = () => {
         <div
           style={{
             position: "fixed",
-            left: mousePosition.x + 10,
-            top: mousePosition.y - 30,
+            left: tooltipPosition.x,
+            top: tooltipPosition.y,
             background: "#1E1E1E",
             border: "2px solid #565656",
             borderRadius: "4px",
@@ -865,7 +996,7 @@ const CraftSection = () => {
             zIndex: 1000,
             pointerEvents: "none",
             whiteSpace: "nowrap",
-            boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.3)"
+            boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.3)",
           }}
         >
           {hoveredItem.readable || hoveredItem.name}
