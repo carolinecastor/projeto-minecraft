@@ -432,7 +432,7 @@ const Footer = () => {
                   scrollbarColor: "#4a5568 #1a202c",
                 }}
               >
-                <style jsx>{`
+                <style>{`
                   div::-webkit-scrollbar {
                     width: 8px;
                   }

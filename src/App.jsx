@@ -29,7 +29,7 @@ function App() {
       <Header />
       <HeroSection />
       <CharacterSelection onCursorChange={handleCursorChange} />
-      <Transition className="-top-28" />
+      {/* <Transition className="-top-28 min-w-7xl" /> */}
       <GuideSection />
       <SeedSection />
       <CraftSection />

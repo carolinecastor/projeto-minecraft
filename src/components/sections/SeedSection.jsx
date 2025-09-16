@@ -10,23 +10,23 @@ import { useState, useCallback } from "react";
 
 const SeedCard = ({ image, title, coords, seed, onCopy, isCopied }) => {
   return (
-    <div className="bg-[#262523] border-2 border-[#747474] shadow-lg overflow-hidden">
+    <div className="bg-[#262523] border-2 border-[#747474] shadow-lg overflow-hidden rounded-sm transition-transform hover:scale-105 duration-200">
       <img
         src={image}
         alt=""
-        className="w-full h-40 sm:h-44 md:h-48 object-cover"
+        className="w-full h-32 xs:h-36 sm:h-40 md:h-44 lg:h-48 object-cover"
         loading="lazy"
         decoding="async"
       />
-      <div className="p-3 text-white font-minecraft text-[11px] sm:text-xs leading-tight">
-        <div className="uppercase mb-1">{title}</div>
-        <div className="opacity-80">COORDENADAS IMPORTANTES: {coords}</div>
+      <div className="p-2 xs:p-3 text-white font-minecraft text-[9px] xs:text-[10px] sm:text-[11px] md:text-xs leading-tight">
+        <div className="uppercase mb-1 break-words">{title}</div>
+        <div className="opacity-80 break-words">COORDENADAS IMPORTANTES: {coords}</div>
       </div>
-      <div className="flex items-center justify-between gap-2 bg-[#585858] px-3 py-2">
-        <span className="text-white font-minecraft text-[10px] sm:text-xs leading-[1.35]">
+      <div className="flex items-center justify-between gap-1 xs:gap-2 bg-[#585858] px-2 xs:px-3 py-2">
+        <span className="text-white font-minecraft text-[8px] xs:text-[9px] sm:text-[10px] md:text-xs leading-[1.35] break-all">
           {seed}
         </span>
-        <Button className="py-1.5 px-3 text-xs" onClick={() => onCopy(seed)}>
+        <Button className="py-1 xs:py-1.5 px-2 xs:px-3 text-[8px] xs:text-[10px] sm:text-xs whitespace-nowrap" onClick={() => onCopy(seed)}>
           {isCopied ? "COPIADO" : "COPIAR"}
         </Button>
       </div>
@@ -93,7 +93,7 @@ const SeedSection = () => {
   return (
     <section
       id="seeds"
-      className="relative min-h-screen flex items-center justify-center py-10 sm:py-14 px-4 overflow-hidden -mt-4"
+      className="relative min-h-screen flex items-center justify-center py-8 sm:py-10 md:py-14 px-3 sm:px-4 md:px-6 overflow-hidden -mt-4"
       style={{ contentVisibility: "auto" }}
     >
       <div
@@ -106,13 +106,13 @@ const SeedSection = () => {
           imageRendering: "pixelated",
         }}
       />
-      <div className="relative z-10 w-full max-w-6xl mt-24 sm:mt-28">
-        <div className="text-center mb-8">
-          <Title className="text-white font-minecraft text-4xl! sm:text-4xl!">
+      <div className="relative z-10 w-full max-w-7xl mt-16 xs:mt-20 sm:mt-24 md:mt-28">
+        <div className="text-center mb-6 sm:mb-8 md:mb-10">
+          <Title className="text-white font-minecraft text-xl xs:text-2xl sm:text-3xl md:text-4xl lg:text-5xl px-2">
             ESCOLHA UMA SEED PARA JOGAR!
           </Title>
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-3 gap-3 xs:gap-4 sm:gap-5 md:gap-6">
           {seeds.map((item) => (
             <SeedCard
               key={item.seed}

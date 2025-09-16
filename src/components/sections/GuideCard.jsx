@@ -28,20 +28,28 @@ import fraseEnd from "../../assets/frase-end.webp";
 
 const TabItem = memo(({ tab, index, isSelected, tabsLength, onTabClick }) => (
   <div
-    className={`flex items-center px-4 py-4 cursor-pointer transition-colors font-minecraft text-white border-l-2 border-l-[#747474] ${
-      index === 0 ? "border-t-2 border-t-[#747474]" : ""
+    className={`flex items-center px-1 sm:px-2 md:px-4 py-2 sm:py-3 md:py-4 cursor-pointer transition-colors font-minecraft text-white border-2 border-[#747474] ${
+      index === 0 ? "lg:border-t-2 lg:border-t-[#747474]" : ""
     } ${
       index === tabsLength - 1 || index < tabsLength - 1
-        ? "border-b-2 border-b-[#747474]"
+        ? "lg:border-b-2 lg:border-b-[#747474]"
         : ""
-    } ${isSelected ? "bg-[#3D3938]" : "bg-[#262523] hover:bg-[#3D3938]"}`}
+    } ${
+      isSelected ? "bg-[#3D3938]" : "bg-[#262523] hover:bg-[#3D3938]"
+    } rounded lg:rounded-none lg:border-l-2 lg:border-r-0 lg:border-t-0 lg:border-b-0 lg:border-l-[#747474] whitespace-nowrap min-w-max`}
     onClick={() => {
       playClickSound();
       onTabClick();
     }}
   >
-    <img src={tab.icon} alt={tab.label} className="w-8 h-8 mr-3" />
-    <span className="text-sm">{tab.label}</span>
+    <img
+      src={tab.icon}
+      alt={tab.label}
+      className="w-4 h-4 sm:w-6 sm:h-6 md:w-8 md:h-8 mr-1 sm:mr-2 md:mr-3 flex-shrink-0"
+    />
+    <span className="text-[10px] sm:text-xs md:text-sm leading-tight">
+      {tab.label}
+    </span>
   </div>
 ));
 
@@ -229,68 +237,77 @@ const GuideCard = () => {
   );
 
   return (
-    <div className="max-w-4xl mx-auto">
-      <div className="text-center mb-6">
-        <Title className="text-white font-minecraft text-4xl!">
+    <div className="max-w-sm sm:max-w-md md:max-w-2xl lg:max-w-4xl mx-auto px-2 sm:px-4">
+      <div className="text-center mb-4 md:mb-6">
+        <Title className="text-white font-minecraft text-lg sm:text-xl md:text-3xl lg:text-4xl">
           GUIA MINECRAFT
         </Title>
       </div>
 
-      <div className="flex">
+      <div className="flex flex-col lg:flex-row gap-2 lg:gap-0 md:gap-4">
         {/* Navigation Tabs */}
-        <div className="w-1/3">
-          {tabs.map((tab, index) => (
-            <TabItem
-              key={tab.id}
-              tab={tab}
-              index={index}
-              isSelected={selectedTab === tab.id}
-              tabsLength={tabs.length}
-              onTabClick={tabClickHandlers[tab.id]}
-            />
-          ))}
+        <div className="w-full lg:w-1/3">
+          <div className="flex flex-row lg:flex-col overflow-x-auto lg:overflow-x-visible gap-1 lg:gap-0 pb-2 lg:pb-0">
+            {tabs.map((tab, index) => (
+              <div key={tab.id} className="flex-shrink-0 lg:flex-shrink">
+                <TabItem
+                  tab={tab}
+                  index={index}
+                  isSelected={selectedTab === tab.id}
+                  tabsLength={tabs.length}
+                  onTabClick={tabClickHandlers[tab.id]}
+                />
+              </div>
+            ))}
+          </div>
         </div>
 
         {/* Content Area */}
-        <div className="w-2/3">
+        <div className="w-full lg:w-2/3">
           <div
-            className="overflow-hidden h-[600px] flex flex-col"
+            className="overflow-hidden h-[500px] sm:h-[550px] md:h-[600px] lg:h-[600px] flex flex-col"
             style={contentAreaStyle}
           >
             {/* Image Display */}
-            <div className="relative px-2 pt-6">
+            <div className="relative px-2 sm:px-2 pt-4 sm:pt-4 md:pt-6">
               <img
                 src={currentStep.image}
                 alt="Guide content"
-                className="w-full h-80 object-cover rounded-lg"
+                className="w-full h-48 sm:h-52 md:h-64 lg:h-80 object-cover rounded-lg"
                 loading="lazy"
               />
             </div>
 
             {/* Description */}
-            <div className="px-2 pb-6 pt-4 flex-1 flex flex-col">
+            <div className="px-2 sm:px-2 pb-3 sm:pb-4 md:pb-6 pt-3 sm:pt-3 md:pt-4 flex-1 flex flex-col">
               <div className="flex-1 overflow-y-auto">
-                <p className="text-white font-minecraft text-sm mb-6 text-left">
+                <p className="text-white font-minecraft pt-4 text-xs sm:text-xs md:text-sm mb-3 sm:mb-4 md:mb-6 text-left leading-relaxed sm:leading-relaxed">
                   {currentStep.description}
                 </p>
               </div>
 
               {/* Navigation Buttons */}
-              <div className="flex items-center mt-auto">
+              <div className="flex items-center mt-auto gap-1 sm:gap-2">
                 <div className="flex-1">
                   {(selectedTab !== "overworld" || currentImageIndex > 0) && (
-                    <Button onClick={handlePrevious} className="px-4 py-2">
+                    <Button
+                      onClick={handlePrevious}
+                      className="px-2 sm:px-2 md:px-4 py-2 sm:py-2 text-xs sm:text-xs md:text-sm w-full lg:w-auto"
+                    >
                       ANTERIOR
                     </Button>
                   )}
                 </div>
                 <div className="flex-1 text-center">
-                  <span className="text-white font-minecraft text-sm">
+                  <span className="text-white font-minecraft text-xs sm:text-xs md:text-sm">
                     {currentImageIndex + 1} / {guideSteps[selectedTab].length}
                   </span>
                 </div>
                 <div className="flex-1 flex justify-end">
-                  <Button onClick={handleNext} className="px-4 py-2">
+                  <Button
+                    onClick={handleNext}
+                    className="px-2 sm:px-2 md:px-4 py-2 sm:py-2 text-xs sm:text-xs md:text-sm w-full lg:w-auto"
+                  >
                     PRÓXIMO
                   </Button>
                 </div>
