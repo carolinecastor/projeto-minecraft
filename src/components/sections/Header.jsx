@@ -62,7 +62,7 @@ const Header = () => {
   }, []);
 
   return (
-    <header className="bg-[rgba(30,30,30,0.64)] h-12 sm:h-16 fixed top-0 left-0 right-0 z-[99999]">
+    <header className="bg-[rgba(30,30,30,0.64)] backdrop-blur-sm h-12 sm:h-16 fixed top-0 left-0 right-0 z-[99999] w-full">
       <div className="flex items-center justify-between h-full px-4">
         <div className="flex items-center ml-4">
           <button onClick={scrollToTop} className="cursor-pointer">

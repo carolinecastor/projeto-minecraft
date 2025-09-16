@@ -14,15 +14,15 @@ const SeedCard = ({ image, title, coords, seed, onCopy, isCopied }) => {
       <img
         src={image}
         alt=""
-        className="w-full h-32 xs:h-36 sm:h-40 md:h-44 lg:h-48 object-cover"
+        className="w-full h-48 xs:h-52 sm:h-40 md:h-44 lg:h-48 object-cover"
         loading="lazy"
         decoding="async"
       />
-      <div className="p-2 xs:p-3 text-white font-minecraft text-[9px] xs:text-[10px] sm:text-[11px] md:text-xs leading-tight">
-        <div className="uppercase mb-1 break-words">{title}</div>
+      <div className="p-3 xs:p-4 text-white font-minecraft text-[10px] xs:text-[11px] sm:text-[11px] md:text-xs leading-tight">
+        <div className="uppercase mb-2 break-words">{title}</div>
         <div className="opacity-80 break-words">COORDENADAS IMPORTANTES: {coords}</div>
       </div>
-      <div className="flex items-center justify-between gap-1 xs:gap-2 bg-[#585858] px-2 xs:px-3 py-2">
+      <div className="flex items-center justify-between gap-2 xs:gap-2 bg-[#585858] px-3 xs:px-3 py-3">
         <span className="text-white font-minecraft text-[8px] xs:text-[9px] sm:text-[10px] md:text-xs leading-[1.35] break-all">
           {seed}
         </span>

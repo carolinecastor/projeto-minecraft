@@ -35,7 +35,7 @@ const CharacterSelection = ({ onCursorChange }) => {
           alt=""
           className="absolute -bottom-4 left-48 cursor-pointer transition-all duration-300 hover:scale-110 hover:brightness-110 hover:drop-shadow-lg
                      max-lg:left-16 max-lg:scale-75 max-lg:-bottom-8
-                     max-md:static max-md:w-48 max-md:h-auto max-md:mr-4 max-md:hover:scale-105"
+                     max-md:static max-md:w-55 max-md:h-auto max-md:-mr-4 max-md:hover:scale-105 max-md:-mt-20"
           onClick={handleStevenClick}
           loading="lazy"
           decoding="async"
@@ -45,7 +45,7 @@ const CharacterSelection = ({ onCursorChange }) => {
           alt=""
           className="absolute -top-15  right-0 cursor-pointer transition-all duration-300 hover:scale-110 hover:brightness-110 hover:drop-shadow-lg
                      max-lg:right-16 max-lg:scale-75 max-lg:-top-8
-                     max-md:static max-md:w-48 max-md:h-auto max-md:ml-4 max-md:hover:scale-105"
+                     max-md:static max-md:w-55 max-md:h-auto max-md:-ml-4 max-md:hover:scale-105 max-md:mt-20"
           onClick={handleAlexClick}
           loading="lazy"
           decoding="async"
@@ -59,7 +59,7 @@ const CharacterSelection = ({ onCursorChange }) => {
         <Title
           className="text-2xl! w-2/3 leading-20
                           max-lg:text-4xl max-lg:w-full max-lg:leading-tight
-                          max-md:text-3xl max-md:w-full max-md:leading-tight max-md:mb-6"
+                          max-md:text-4xl max-md:w-full max-md:leading-tight max-md:mb-6"
         >
           ESCOLHA SEU PERSONAGEM
         </Title>
