@@ -265,26 +265,14 @@ const Footer = () => {
                   />
                   <h3 className="text-white font-bold text-base">CRAFTING</h3>
                 </div>
-                <div className="grid grid-cols-1 gap-2 text-sm">
-                  <div className="flex items-center gap-2 text-blue-400 hover:text-blue-300 transition-colors">
-                    <div
-                      className="w-3 h-3 bg-blue-500 border border-blue-700"
-                      style={{ imageRendering: "pixelated" }}
-                    ></div>
+                <div className="flex flex-col gap-2 text-sm">
+                  <div className="text-blue-400 hover:text-blue-300 transition-colors">
                     <span>React & Vite</span>
                   </div>
-                  <div className="flex items-center gap-2 text-cyan-400 hover:text-cyan-300 transition-colors">
-                    <div
-                      className="w-3 h-3 bg-cyan-500 border border-cyan-700"
-                      style={{ imageRendering: "pixelated" }}
-                    ></div>
+                  <div className="text-cyan-400 hover:text-cyan-300 transition-colors">
                     <span>Tailwind CSS</span>
                   </div>
-                  <div className="flex items-center gap-2 text-purple-400 hover:text-purple-300 transition-colors">
-                    <div
-                      className="w-3 h-3 bg-purple-500 border border-purple-700"
-                      style={{ imageRendering: "pixelated" }}
-                    ></div>
+                  <div className="text-purple-400 hover:text-purple-300 transition-colors">
                     <span>JavaScript Magic</span>
                   </div>
                 </div>
@@ -356,36 +344,24 @@ const Footer = () => {
                       MULTIPLAYER
                     </h3>
                   </div>
-                  <div className="space-y-2 text-sm">
+                  <div className="flex flex-col gap-2 text-sm">
                     <a
                       href="https://www.linkedin.com/in/caroline-santos-castro/"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center gap-2 text-blue-400 hover:text-blue-300 transition-colors group"
+                      className="text-blue-400 hover:text-blue-300 transition-colors"
                     >
-                      <div
-                        className="w-3 h-3 bg-blue-600 border border-blue-800 group-hover:bg-blue-500"
-                        style={{ imageRendering: "pixelated" }}
-                      ></div>
                       <span>LinkedIn Server</span>
                     </a>
                     <a
                       href="https://portifolio-caroline-castro.vercel.app/"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center gap-2 text-purple-400 hover:text-purple-300 transition-colors group"
+                      className="text-purple-400 hover:text-purple-300 transition-colors"
                     >
-                      <div
-                        className="w-3 h-3 bg-purple-600 border border-purple-800 group-hover:bg-purple-500"
-                        style={{ imageRendering: "pixelated" }}
-                      ></div>
                       <span>Portfolio World</span>
                     </a>
-                    <div className="flex items-center gap-2 text-green-400">
-                      <div
-                        className="w-3 h-3 bg-green-600 border border-green-800"
-                        style={{ imageRendering: "pixelated" }}
-                      ></div>
+                    <div className="text-green-400">
                       <span>Status: Online</span>
                     </div>
                   </div>
