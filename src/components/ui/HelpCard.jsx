@@ -1,11 +1,28 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { playClickSound } from "../../utils/soundUtils";
 
 const HelpCard = ({ title, content, className = "" }) => {
   const [isExpanded, setIsExpanded] = useState(false);
+  const helpCardRef = useRef(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (helpCardRef.current && !helpCardRef.current.contains(event.target)) {
+        setIsExpanded(false);
+      }
+    };
+
+    if (isExpanded) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isExpanded]);
 
   return (
-    <div className={`fixed top-40 right-6 z-20 ${className}`}>
+    <div className={`fixed top-40 right-6 z-20 ${className}`} ref={helpCardRef}>
       <div className="relative">
         <button
           onClick={() => {
