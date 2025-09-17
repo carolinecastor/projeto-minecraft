@@ -308,6 +308,10 @@ const CraftSection = () => {
           }}
         />
 
+        <div className="absolute inset-0 -top-12">
+          <img src={terraTransition} alt="" className="w-full block" />
+        </div>
+
         {/* Craft Guide Content */}
         <div className="relative z-10 w-full max-w-7xl mt-8 sm:mt-12 lg:mt-16 xl:mt-20 px-2 sm:px-4">
           {/* Minecraft-style Header */}
