@@ -21,7 +21,7 @@ const HeroSection = () => {
   return (
     <section
       id="hero"
-      className="relative z-0 h-[calc(100vh-3rem)] sm:h-[calc(100vh-4rem)] bg-cover bg-center bg-no-repeat"
+      className="relative z-0 h-screen pt-12 sm:pt-16 bg-cover bg-center bg-no-repeat"
       style={{ ...backgroundStyle, contentVisibility: "auto" }}
     >
       <div className="flex items-center justify-center sm:justify-start h-full container mx-auto px-4 sm:px-5">

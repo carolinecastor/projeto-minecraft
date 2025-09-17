@@ -26,7 +26,6 @@ function App() {
 
   return (
     <div style={cursorStyle}>
-      <Header />
       <HeroSection />
       <CharacterSelection onCursorChange={handleCursorChange} />
 
@@ -39,6 +38,7 @@ function App() {
       <CraftSection />
       <PedraTransition />
       <Footer />
+      <Header />
     </div>
   );
 }

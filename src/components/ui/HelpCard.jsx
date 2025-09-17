@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { playClickSound } from "../../utils/soundUtils";
 
-const HelpCard = ({ title, content, className = "" }) => {
+const HelpCard = ({ title, content, className = "", position = "fixed top-40 right-6" }) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const helpCardRef = useRef(null);
 
@@ -22,7 +22,7 @@ const HelpCard = ({ title, content, className = "" }) => {
   }, [isExpanded]);
 
   return (
-    <div className={`fixed top-40 right-6 z-20 ${className}`} ref={helpCardRef}>
+    <div className={`${position} z-20 ${className}`} ref={helpCardRef}>
       <div className="relative">
         <button
           onClick={() => {

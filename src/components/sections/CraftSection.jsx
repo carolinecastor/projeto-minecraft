@@ -1131,6 +1131,7 @@ const CraftSection = () => {
         <HelpCard
           title="O QUE É O GUIA DE CRAFT?"
           content="Este guia mostra receitas da MESA DE CRAFTING do Minecraft. Alguns itens precisam de outros equipamentos especiais como Fornalha (lingots, vidro), Mesa de Ferraria (netherite), Suporte de Poções (poções) ou Mesa de Encantamento (itens encantados). Quando não aparece receita, o item pode precisar desses equipamentos especiais ou ser um drop natural!"
+          position="fixed top-2 right-2 sm:top-4 sm:right-4"
         />
 
         {/* <img
