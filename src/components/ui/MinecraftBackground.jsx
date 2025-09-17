@@ -7,7 +7,6 @@ const MinecraftBackground = () => {
       style={{
         backgroundColor: "#8B7355",
         backgroundImage: `url(${fundoTerra})`,
-        backgroundPosition: "center top -18px",
 
         backgroundSize: "cover",
         imageRendering: "pixelated",
