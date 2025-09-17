@@ -6,13 +6,13 @@ import cranioSeed from "../../assets/cranio-seed (1).webp";
 import aldeiaSeed from "../../assets/aldeia-seed (1).webp";
 import neveSeed from "../../assets/neve-seed (1).webp";
 import { Title, Button, HelpCard } from "../ui";
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback } from "react";
 import MinecraftBackground from "../ui/MinecraftBackground";
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Pagination, Navigation } from 'swiper/modules';
-import 'swiper/css';
-import 'swiper/css/pagination';
-import 'swiper/css/navigation';
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Pagination, Navigation } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/pagination";
+import "swiper/css/navigation";
 
 const SeedCard = ({ image, title, coords, seed, onCopy, isCopied }) => {
   return (
@@ -65,18 +65,6 @@ const SeedSection = () => {
     }
   `;
   const [copiedSeed, setCopiedSeed] = useState("");
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 1024);
-    };
-
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-
-    return () => window.removeEventListener('resize', checkMobile);
-  }, []);
   const seeds = [
     {
       image: anelSeed,
@@ -146,7 +134,8 @@ const SeedSection = () => {
             ESCOLHA UMA SEED PARA JOGAR!
           </Title>
         </div>
-        {isMobile ? (
+        {/* Swiper para mobile/tablet */}
+        <div className="block lg:hidden">
           <Swiper
             modules={[Pagination, Navigation]}
             spaceBetween={16}
@@ -185,21 +174,22 @@ const SeedSection = () => {
               </SwiperSlide>
             ))}
           </Swiper>
-        ) : (
-          <div className="grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-3 gap-3 xs:gap-4 sm:gap-5 md:gap-6">
-            {seeds.map((item) => (
-              <SeedCard
-                key={item.seed}
-                image={item.image}
-                title={item.title}
-                coords={item.coords}
-                seed={item.seed}
-                isCopied={copiedSeed === item.seed}
-                onCopy={handleCopy}
-              />
-            ))}
-          </div>
-        )}
+        </div>
+
+        {/* Grid para desktop */}
+        <div className="hidden lg:grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-3 gap-3 xs:gap-4 sm:gap-5 md:gap-6">
+          {seeds.map((item) => (
+            <SeedCard
+              key={item.seed}
+              image={item.image}
+              title={item.title}
+              coords={item.coords}
+              seed={item.seed}
+              isCopied={copiedSeed === item.seed}
+              onCopy={handleCopy}
+            />
+          ))}
+        </div>
       </div>
       <HelpCard
         title="O QUE É UMA SEED?"
