@@ -237,11 +237,11 @@ const GuideCard = () => {
   );
 
   return (
-    <div className="max-w-sm sm:max-w-md md:max-w-2xl lg:max-w-4xl mx-auto px-2 sm:px-4">
-      <div className="text-center mb-4 md:mb-6">
-        <Title className="text-white font-minecraft text-3xl sm:text-2xl md:text-4xl lg:text-5xl">
+    <div className="max-w-sm sm:max-w-md md:max-w-2xl lg:max-w-4xl mx-auto px-2 sm:px-4 mt-20 sm:mt-24 md:mt-28 lg:mt-32">
+      <div className="text-center mb-6 md:mb-8">
+        <h1 className="text-white font-minecraft text-3xl sm:text-2xl md:text-4xl lg:text-5xl font-bold mb-6 sm:mb-8 uppercase tracking-wider" style={{ textShadow: "0 2px 8px #000" }}>
           GUIA MINECRAFT
-        </Title>
+        </h1>
       </div>
 
       <div className="flex flex-col lg:flex-row gap-2 lg:gap-0 md:gap-4">

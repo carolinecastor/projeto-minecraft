@@ -130,9 +130,9 @@ const SeedSection = () => {
       <div />
       <div className="relative z-10 w-full max-w-7xl mt-16 xs:mt-20 sm:mt-24 md:mt-28">
         <div className="text-center mb-6 sm:mb-8 md:mb-10">
-          <Title className="text-white font-minecraft text-3xl xs:text-2xl sm:text-3xl md:text-4xl lg:text-5xl px-2">
+          <h1 className="text-white font-minecraft text-3xl xs:text-2xl sm:text-3xl md:text-4xl lg:text-5xl px-2 font-bold mb-3 sm:mb-4 uppercase tracking-wider" style={{ textShadow: "0 2px 8px #000" }}>
             ESCOLHA UMA SEED PARA JOGAR!
-          </Title>
+          </h1>
         </div>
         {/* Swiper para mobile/tablet */}
         <div className="block lg:hidden">
