@@ -19,6 +19,8 @@ const Header = () => {
         offset = 20;
       } else if (sectionId === "seeds") {
         offset = 0;
+      } else if (sectionId === "craft") {
+        offset = 60;
       }
 
       const elementPosition = element.offsetTop - offset;
@@ -60,7 +62,7 @@ const Header = () => {
   }, []);
 
   useEffect(() => {
-    const ids = ["hero", "characters", "guides", "seeds"];
+    const ids = ["hero", "characters", "guides", "seeds", "craft", "footer"];
     const options = {
       root: null,
       rootMargin: "-50% 0px -50% 0px",
@@ -69,7 +71,7 @@ const Header = () => {
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          if (entry.target.id === "hero") {
+          if (entry.target.id === "hero" || entry.target.id === "footer") {
             setActiveSection(null);
           } else {
             setActiveSection(entry.target.id);
@@ -195,6 +197,31 @@ const Header = () => {
               <svg
                 className={`w-3 h-3 transition-transform duration-200 ${
                   activeSection === "seeds" ? "rotate-180" : ""
+                }`}
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M19 9l-7 7-7-7"
+                />
+              </svg>
+            </button>
+            <button
+              onClick={() => scrollToSection("craft")}
+              className={`transition-colors text-xs uppercase tracking-wider font-bold flex items-center gap-1 ${
+                activeSection === "craft"
+                  ? "text-green-400"
+                  : "text-white hover:text-green-400"
+              }`}
+            >
+              Mesa de Trabalho
+              <svg
+                className={`w-3 h-3 transition-transform duration-200 ${
+                  activeSection === "craft" ? "rotate-180" : ""
                 }`}
                 fill="none"
                 stroke="currentColor"
@@ -352,6 +379,31 @@ const Header = () => {
             <svg
               className={`w-4 h-4 transition-transform duration-200 ${
                 activeSection === "seeds" ? "rotate-180" : ""
+              }`}
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M19 9l-7 7-7-7"
+              />
+            </svg>
+          </button>
+          <button
+            onClick={() => scrollToSection("craft")}
+            className={`px-6 py-4 text-left transition-colors text-sm uppercase tracking-wider font-bold flex items-center justify-between ${
+              activeSection === "craft"
+                ? "text-green-400 bg-green-400/10"
+                : "text-white hover:text-green-400 hover:bg-green-400/5"
+            }`}
+          >
+            Mesa de Trabalho
+            <svg
+              className={`w-4 h-4 transition-transform duration-200 ${
+                activeSection === "craft" ? "rotate-180" : ""
               }`}
               fill="none"
               stroke="currentColor"

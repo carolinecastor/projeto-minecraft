@@ -229,7 +229,7 @@ const Footer = () => {
   };
 
   return (
-    <footer className="bg-[#1A1A1A] relative py-6">
+    <footer id="footer" className="bg-[#1A1A1A] relative py-6">
       {/* Grid pattern subtle */}
       <div
         className="absolute inset-0 opacity-5"
