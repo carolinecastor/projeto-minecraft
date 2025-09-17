@@ -1129,13 +1129,13 @@ const CraftSection = () => {
           content="Este guia mostra receitas da MESA DE CRAFTING do Minecraft. Alguns itens precisam de outros equipamentos especiais como Fornalha (lingots, vidro), Mesa de Ferraria (netherite), Suporte de Poções (poções) ou Mesa de Encantamento (itens encantados). Quando não aparece receita, o item pode precisar desses equipamentos especiais ou ser um drop natural!"
         />
 
-        <img
+        {/* <img
           className="pointer-events-none absolute left-0 w-full block z-[100] -top-13"
           src={terraTransition}
           alt=""
           loading="lazy"
           decoding="async"
-        />
+        /> */}
       </section>
     </ErrorBoundary>
   );

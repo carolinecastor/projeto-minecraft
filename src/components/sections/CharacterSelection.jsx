@@ -57,16 +57,17 @@ const CharacterSelection = ({ onCursorChange }) => {
                       max-md:w-full max-md:mt-0 max-md:text-center max-md:order-1"
       >
         <Title
-          className="text-2xl! w-2/3 leading-20
-                          max-lg:text-4xl max-lg:w-full max-lg:leading-tight
-                          max-md:text-4xl max-md:w-full max-md:leading-tight max-md:mb-6"
+          className="text-white sm:text-xl md:text-5xl! font-bold mb-3 sm:mb-4 uppercase tracking-wider font-minercraftory text-3xl! w-2/3 leading-20
+                          max-lg:text-9xl max-lg:w-full max-lg:leading-tight
+                          max-md:text-6xl max-md:w-full max-md:leading-tight max-md:mb-6"
+          style={{ textShadow: "rgb(0, 0, 0) 0px 2px 8px" }}
         >
           ESCOLHA SEU PERSONAGEM
         </Title>
         <Description
-          className="w-2/3
-                                max-lg:w-full max-lg:text-base max-lg:leading-relaxed
-                                max-md:w-full max-md:text-sm max-md:leading-relaxed"
+          className="w-2/3 text-lg
+                                max-lg:w-full max-lg:text-xl max-lg:leading-relaxed
+                                max-md:w-full max-md:text-base max-md:leading-relaxed"
         >
           Antes de começar, escolha quem vai te acompanhar nessa jornada: {""}
           <span className="font-bold">Steve</span> ou{" "}

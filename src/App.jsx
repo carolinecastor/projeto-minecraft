@@ -8,7 +8,7 @@ import {
   CraftSection,
   Footer,
 } from "./components/sections";
-import { Transition, PedraTransition } from "./components/ui";
+import { Transition, PedraTransition, Transition1 } from "./components/ui";
 
 function App() {
   const [selectedCursor, setSelectedCursor] = useState(null);
@@ -29,7 +29,11 @@ function App() {
       <Header />
       <HeroSection />
       <CharacterSelection onCursorChange={handleCursorChange} />
-      {/* <Transition className="-top-28 min-w-7xl" /> */}
+
+      <div className="relative">
+        <Transition className="-top-12 min-w-5xl" />
+      </div>
+
       <GuideSection />
       <SeedSection />
       <CraftSection />

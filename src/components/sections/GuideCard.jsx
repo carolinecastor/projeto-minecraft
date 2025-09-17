@@ -36,7 +36,7 @@ const TabItem = memo(({ tab, index, isSelected, tabsLength, onTabClick }) => (
         : ""
     } ${
       isSelected ? "bg-[#3D3938]" : "bg-[#262523] hover:bg-[#3D3938]"
-    } rounded lg:rounded-none lg:border-l-2 lg:border-r-0 lg:border-t-0 lg:border-b-0 lg:border-l-[#747474] whitespace-nowrap min-w-max`}
+    } rounded lg:rounded-none lg:border-l-2 lg:border-r-0 lg:border-t-0 lg:border-b-0 lg:border-l-[#747474] whitespace-nowrap min-w-max max-md:w-full max-md:justify-start max-md:text-left`}
     onClick={() => {
       playClickSound();
       onTabClick();
@@ -239,7 +239,7 @@ const GuideCard = () => {
   return (
     <div className="max-w-sm sm:max-w-md md:max-w-2xl lg:max-w-4xl mx-auto px-2 sm:px-4">
       <div className="text-center mb-4 md:mb-6">
-        <Title className="text-white font-minecraft text-lg sm:text-xl md:text-3xl lg:text-4xl">
+        <Title className="text-white font-minecraft text-2xl! sm:text-2xl md:text-4xl lg:text-5xl">
           GUIA MINECRAFT
         </Title>
       </div>
@@ -247,9 +247,12 @@ const GuideCard = () => {
       <div className="flex flex-col lg:flex-row gap-2 lg:gap-0 md:gap-4">
         {/* Navigation Tabs */}
         <div className="w-full lg:w-1/3">
-          <div className="flex flex-row lg:flex-col overflow-x-auto lg:overflow-x-visible gap-1 lg:gap-0 pb-2 lg:pb-0">
+          <div className="flex flex-row lg:flex-col overflow-x-auto lg:overflow-x-visible gap-1 lg:gap-0 pb-2 lg:pb-0 max-md:grid max-md:grid-cols-2 max-md:gap-2">
             {tabs.map((tab, index) => (
-              <div key={tab.id} className="flex-shrink-0 lg:flex-shrink">
+              <div
+                key={tab.id}
+                className="flex-shrink-0 lg:flex-shrink max-md:w-full"
+              >
                 <TabItem
                   tab={tab}
                   index={index}
@@ -265,7 +268,7 @@ const GuideCard = () => {
         {/* Content Area */}
         <div className="w-full lg:w-2/3">
           <div
-            className="overflow-hidden h-[500px] sm:h-[550px] md:h-[600px] lg:h-[600px] flex flex-col"
+            className="relative overflow-hidden h-[500px] sm:h-[550px] md:h-[600px] lg:h-[600px] flex flex-col"
             style={contentAreaStyle}
           >
             {/* Image Display */}
@@ -273,30 +276,34 @@ const GuideCard = () => {
               <img
                 src={currentStep.image}
                 alt="Guide content"
-                className="w-full h-48 sm:h-52 md:h-64 lg:h-80 object-cover rounded-lg"
+                className="w-full h-48 sm:h-52 md:h-60 lg:h-72 object-cover rounded-lg"
                 loading="lazy"
               />
             </div>
 
             {/* Description */}
-            <div className="px-2 sm:px-2 pb-3 sm:pb-4 md:pb-6 pt-3 sm:pt-3 md:pt-4 flex-1 flex flex-col">
-              <div className="flex-1 overflow-y-auto">
-                <p className="text-white font-minecraft pt-4 text-xs sm:text-xs md:text-sm mb-3 sm:mb-4 md:mb-6 text-left leading-relaxed sm:leading-relaxed">
+            <div className="px-2 sm:px-2 pt-3 sm:pt-3 md:pt-4 flex-1 flex flex-col">
+              <div className="flex-1 pb-16">
+                <p className="text-white font-minecraft text-xs sm:text-xs md:text-sm text-left leading-relaxed sm:leading-relaxed">
                   {currentStep.description}
                 </p>
               </div>
+            </div>
 
-              {/* Navigation Buttons */}
-              <div className="flex items-center mt-auto gap-1 sm:gap-2">
+            {/* Navigation Buttons - Positioned absolutely at bottom */}
+            <div className="absolute bottom-3 sm:bottom-4 md:bottom-6 left-2 right-2 sm:left-2 sm:right-2">
+              <div className="flex items-center gap-1 sm:gap-2">
                 <div className="flex-1">
-                  {(selectedTab !== "overworld" || currentImageIndex > 0) && (
-                    <Button
-                      onClick={handlePrevious}
-                      className="px-2 sm:px-2 md:px-4 py-2 sm:py-2 text-xs sm:text-xs md:text-sm w-full lg:w-auto"
-                    >
-                      ANTERIOR
-                    </Button>
-                  )}
+                  <Button
+                    onClick={handlePrevious}
+                    className={`px-2 sm:px-2 md:px-4 py-2 sm:py-2 text-xs sm:text-xs md:text-sm w-full lg:w-auto ${
+                      selectedTab === "overworld" && currentImageIndex === 0
+                        ? "opacity-0 pointer-events-none"
+                        : "opacity-100"
+                    }`}
+                  >
+                    ANTERIOR
+                  </Button>
                 </div>
                 <div className="flex-1 text-center">
                   <span className="text-white font-minecraft text-xs sm:text-xs md:text-sm">

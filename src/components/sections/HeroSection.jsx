@@ -50,7 +50,7 @@ const HeroSection = () => {
           </div>
         </div>
         <div className="p-5 absolute bottom-5 -left-10 w-screen">
-          <Transition1 className="-top-20 block z-[100] bg-transparent min-w-7xl" />
+          <Transition1 className="-top-13 block z-[100] bg-transparent min-w-5xl" />
         </div>
       </div>
     </section>
